@@ -20,7 +20,7 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-          git remote add upstream git remote add upstream https://github.com/team120/Universiteams-front.git
+          git remote add upstream https://github.com/team120/Universiteams-front.git
           git fetch upstream
 
           git checkout master

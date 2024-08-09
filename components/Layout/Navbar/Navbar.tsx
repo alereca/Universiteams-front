@@ -32,7 +32,7 @@ const Navbar = () => {
           <NavbarItem
             text={currentUser.user}
             textSecondLine={currentUser.email}
-            link="/perfil"
+            link="/account/profile"
             icon={<IconUserCircle size={iconSize} />}
           />
         </AppShell.Section>

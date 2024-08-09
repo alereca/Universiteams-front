@@ -29,10 +29,10 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useMediaQuery, useToggle } from '@mantine/hooks'
-import Requirement from './Requirement'
 import Theme from '../../src/app/theme'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CurrentUserQueryOptions } from '../../services/currentUser'
+import { notifications } from '@mantine/notifications'
 
 interface LoginRegisterProps {
   initialType: LoginRegisterType
@@ -44,22 +44,38 @@ const LoginRegister = ({ initialType }: LoginRegisterProps) => {
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
   const queryClient = useQueryClient()
 
-  const { mutate: authenticate, error } = useMutation({
-    mutationFn: (values: Login) => Account.authenticate(values, type),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CurrentUserQueryOptions.currentUser().queryKey })
-      router.push('/')
-    },
-  })
-
-  const serverErrors = useMemo(() => {
+  const errorMessage = (error: Error) => {
     if (!error) return []
+    if (error instanceof AxiosError && error.response?.status === 401)
+      return ['Correo o contraseña incorrectos']
 
     const defaultErrorMsg = 'Ocurrió un error inesperado'
     const message = ((error as AxiosError)?.response?.data as { message: string | string[] })
       ?.message
     return Array.isArray(message) ? message : [message || defaultErrorMsg]
-  }, [error])
+  }
+
+  const { mutate: authenticate } = useMutation({
+    mutationFn: (values: Login) => Account.authenticate(values, type),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: CurrentUserQueryOptions.currentUser().queryKey })
+      switch (type) {
+        case 'login':
+          router.push('/')
+          break
+        case 'register':
+          router.push('/account/profile')
+          break
+      }
+    },
+    onError: (error) => {
+      notifications.show({
+        title: type === 'login' ? 'Error al iniciar sesión' : 'Error al registrarse',
+        message: errorMessage(error),
+        color: 'red',
+      })
+    },
+  })
 
   const handleForgotPasswordClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
@@ -130,10 +146,6 @@ const LoginRegister = ({ initialType }: LoginRegisterProps) => {
       </Box>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        {serverErrors.map((error, index) => (
-          <Requirement key={index} meets={false} label={error} />
-        ))}
-
         <form onSubmit={form.onSubmit((values) => authenticate(values))}>
           {type === 'register' && (
             <>

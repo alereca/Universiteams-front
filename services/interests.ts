@@ -11,3 +11,5 @@ export const Interests = {
     return result.data
   },
 }
+
+export const InterestQueryKey = 'interests'

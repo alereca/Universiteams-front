@@ -3,13 +3,12 @@ import { CloseButton, TextInput } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
 
 import { Url } from '@/services/url'
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useDebouncedValue, useMediaQuery } from '@mantine/hooks'
 import Theme from 'src/app/theme'
 
 const SearchBar = () => {
   const router = useRouter()
-  const pathname = usePathname()
   const searchQuery = useSearchParams()
 
   const [generalSearch, setGeneralSearch] = useState('')
@@ -18,7 +17,7 @@ const SearchBar = () => {
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
 
   const searchNowButton = () => {
-    Url.setUrlParam(router, pathname, searchQuery, 'generalSearch', generalSearch)
+    Url.setUrlParam(router, '/projects', searchQuery, 'generalSearch', generalSearch)
   }
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 type SelectItem = {
-  attribute: string
-  displayName: string
+  value: string
+  label: string
 }
 
 export default SelectItem

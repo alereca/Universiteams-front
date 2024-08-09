@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActionIcon, Badge, Card, Chip, Group, Text, useMantineColorScheme } from '@mantine/core'
+import { ActionIcon, Badge, Card, Group, Text, useMantineColorScheme } from '@mantine/core'
 import Dates from 'utils/string/Dates'
 import ProjectInList from '@/entities/ProjectInList'
 import InfoMessage from '../Common/InfoMessage/InfoMessage'
@@ -140,32 +140,30 @@ const ProjectItem = (props: ProjectItemProps) => {
           ))}
         </Group>
 
-        <Chip.Group>
-          <Group gap={'0.5rem'} mt={'1rem'}>
-            {project.enrollments && (
-              <Badge
-                variant="filled"
-                color="violet.6"
-                size="lg"
-                style={{ cursor: 'pointer' }}
-                onClick={(event) => handleLeaderTagClick(project.enrollments[0].user.id, event)}>
-                {project.enrollments[0].user.firstName} {project.enrollments[0].user.lastName}
-                {project.userCount > 1 ? `, +${project.userCount - 1} personas` : ''}
-              </Badge>
-            )}
-            {project.interests.map((interest) => (
-              <Badge
-                variant="dot"
-                key={interest.id}
-                color="blue.6"
-                size="lg"
-                style={{ cursor: 'pointer' }}
-                onClick={(event) => handleInterestTagClick(interest.id, event)}>
-                {interest.name}
-              </Badge>
-            ))}
-          </Group>
-        </Chip.Group>
+        <Group gap={'0.5rem'} mt={'1rem'}>
+          {project.enrollments && (
+            <Badge
+              variant="filled"
+              color="violet.6"
+              size="lg"
+              style={{ cursor: 'pointer' }}
+              onClick={(event) => handleLeaderTagClick(project.enrollments[0].user.id, event)}>
+              {project.enrollments[0].user.firstName} {project.enrollments[0].user.lastName}
+              {project.userCount > 1 ? `, +${project.userCount - 1} personas` : ''}
+            </Badge>
+          )}
+          {project.interests.map((interest) => (
+            <Badge
+              variant="dot"
+              key={interest.id}
+              color="blue.6"
+              size="lg"
+              style={{ cursor: 'pointer' }}
+              onClick={(event) => handleInterestTagClick(interest.id, event)}>
+              {interest.name}
+            </Badge>
+          ))}
+        </Group>
 
         <Group justify="flex-end" align="center" gap="xs">
           {project.requestEnrollmentCount != null && project.requestEnrollmentCount > 0 && (

@@ -6,6 +6,7 @@ const noAuthRoutes = [
   '/account/forgotPassword',
   '/account/login',
   '/account/register',
+  '/account/registerProfile',
   '/account/resetPassword',
   '/account/verifyEmail',
 ]

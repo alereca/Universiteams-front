@@ -121,8 +121,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
                 placeholder='Ej: "nombre"'
                 data={[{ value: '', label: '' }].concat(
                   props.sortAttributes.map((attr) => ({
-                    value: attr.attribute,
-                    label: attr.displayName,
+                    value: attr.value,
+                    label: attr.label,
                   }))
                 )}
                 clearable
@@ -142,8 +142,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             placeholder='Ej: "UTN"'
             data={[{ value: '', label: '' }].concat(
               props.institutions.map((attr) => ({
-                value: attr.attribute,
-                label: attr.displayName,
+                value: attr.value,
+                label: attr.label,
               }))
             )}
             clearable
@@ -156,8 +156,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             placeholder='Ej: "Regional Buenos Aires"'
             data={[{ value: '', label: '' }].concat(
               props.facilities.map((attr) => ({
-                value: attr.attribute,
-                label: attr.displayName,
+                value: attr.value,
+                label: attr.label,
               }))
             )}
             clearable
@@ -170,8 +170,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             placeholder='Ej: "Ingeniería En Sistemas"'
             data={[{ value: '', label: '' }].concat(
               props.departments.map((attr) => ({
-                value: attr.attribute,
-                label: attr.displayName,
+                value: attr.value,
+                label: attr.label,
               }))
             )}
             clearable
@@ -184,8 +184,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             placeholder='Ej: "Juan Perez"'
             data={[{ value: '', label: '' }].concat(
               props.users.map((attr) => ({
-                value: attr.attribute,
-                label: attr.displayName,
+                value: attr.value,
+                label: attr.label,
               }))
             )}
             clearable
@@ -198,8 +198,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             placeholder={form.values.interests.length === 0 ? 'Ej: "Inteligencia Artificial"' : ''}
             data={[{ value: '', label: '' }].concat(
               props.interests.map((attr) => ({
-                value: attr.attribute,
-                label: attr.displayName,
+                value: attr.value,
+                label: attr.label,
               }))
             )}
             clearable

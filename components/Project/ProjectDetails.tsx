@@ -73,6 +73,8 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
   } = useQuery({
     queryKey: [EnrollmentRequestsQueryKey, props.id],
     queryFn: () => Projects.getEnrollmentRequests(props.id),
+    enabled:
+      project?.requestEnrollmentCount !== undefined && project?.requestEnrollmentCount !== null,
   })
 
   const favoriteMutation = useMutation({
@@ -241,25 +243,29 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
               Miembros
             </Tabs.Tab>
 
-            {project.requestEnrollmentCount !== undefined && (
-              <Tabs.Tab
-                value={ProjectDetailsTabs.Requests}
-                leftSection={<IconSend />}
-                rightSection={
-                  <Badge color="blue" variant="filled">
-                    {project.requestEnrollmentCount}
-                  </Badge>
-                }>
-                Solicitudes
-              </Tabs.Tab>
-            )}
+            {project.requestEnrollmentCount !== undefined &&
+              project.requestEnrollmentCount !== null && (
+                <Tabs.Tab
+                  value={ProjectDetailsTabs.Requests}
+                  leftSection={<IconSend />}
+                  rightSection={
+                    <Badge color="blue" variant="filled">
+                      {project.requestEnrollmentCount}
+                    </Badge>
+                  }>
+                  Solicitudes
+                </Tabs.Tab>
+              )}
           </Tabs.List>
 
           <Tabs.Panel value={ProjectDetailsTabs.Members}>
             <EnrollmentList
               projectId={props.id}
               enrollments={project.enrollments}
-              isAdmin={project.requestEnrollmentCount !== undefined}
+              isAdmin={
+                project.requestEnrollmentCount !== undefined &&
+                project.requestEnrollmentCount !== null
+              }
             />
           </Tabs.Panel>
 
@@ -280,7 +286,7 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
                     <Group mt="xs" gap="xs">
                       {request.user.userAffiliations.map((affiliation) => (
                         <Badge
-                          key={affiliation.id}
+                          key={`${request.user.id}:${affiliation.researchDepartment.id}`}
                           color="pink.6"
                           variant="light"
                           component="button"

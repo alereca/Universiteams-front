@@ -98,7 +98,7 @@ export const EnrollmentList: React.FC<EnrollmentListProps> = ({
           <Group mt="xs" gap="xs">
             {enrollment.user.userAffiliations.map((affiliation) => (
               <Badge
-                key={affiliation.id}
+                key={`${enrollment.user.id}:${affiliation.researchDepartment.id}`}
                 color="pink.6"
                 variant="light"
                 component="button"

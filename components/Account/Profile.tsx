@@ -137,12 +137,6 @@ const Profile = () => {
       interestsToCreate.push(interest.label)
     }
 
-    console.log({
-      interestsIds: interestsIds,
-      interestsToCreate: interestsToCreate,
-      researchDepartments: values.researchDepartments,
-    })
-
     registerProfileMutation.mutate({
       interestsIds: interestsIds,
       interestsToCreate: interestsToCreate,

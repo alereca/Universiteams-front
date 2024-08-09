@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { NextPage } from 'next'
 
-import { ProjectQueryOptions } from '@/services/projects'
+import { Order, ProjectQueryOptions } from '@/services/projects'
 
 import Filter from '@/components/Common/Filter/Filter'
 import ProjectFilterContent from '@/components/Project/ProjectFilterContent'
@@ -100,12 +100,7 @@ const ProjectsPage: NextPage = () => {
           : searchQuery.get('isFavorite') === 'true',
       dateFrom: searchQuery.get('dateFrom') ? new Date(searchQuery.get('dateFrom')!) : undefined,
       sortBy: (searchQuery.get('sortBy') as ProjectSortAttribute) || undefined,
-      inAscendingOrder:
-        searchQuery.get('inAscendingOrder') === 'true'
-          ? true
-          : searchQuery.get('inAscendingOrder') === 'false'
-          ? false
-          : undefined,
+      order: (searchQuery.get('order') as Order) || undefined,
       offset: (currentPage - 1) * projectsPerPage,
       limit: projectsPerPage,
     })

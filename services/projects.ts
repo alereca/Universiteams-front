@@ -12,6 +12,11 @@ import { EnrollmentChangeRole } from '../entities/HelpTypes/EnrollmentChangeRole
 
 const prefix = `${Env.backendAPI}/projects`
 
+export enum Order {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
 export interface GetProjectsInput {
   generalSearchTerm?: string
   institutionId?: number
@@ -25,7 +30,7 @@ export interface GetProjectsInput {
   isDown?: boolean
   isFavorite?: boolean
   sortBy?: ProjectSortAttribute
-  inAscendingOrder?: boolean
+  order?: Order
   limit?: number
   offset?: number
 }
@@ -56,15 +61,11 @@ export const Projects = {
       .concat(params?.dateFrom ? `dateFrom=${params.dateFrom.toISOString()}&` : '')
       .concat(params?.isDown ? `isDown=${params.isDown}&` : '')
       .concat(params?.isFavorite ? `isFavorite=${params.isFavorite}&` : '')
-      .concat(
-        params?.sortBy
-          ? `sortBy=${params.sortBy}&inAscendingOrder=${params?.inAscendingOrder ?? true}&`
-          : ''
-      )
+      .concat(params?.sortBy ? `sortBy=${params.sortBy}&` : '')
+      .concat(params?.order ? `order=${params.order}&` : '')
       .concat(params?.limit ? `limit=${params.limit}&` : '')
       .concat(params?.offset ? `offset=${params.offset}&` : '')
 
-    console.log(url)
     const result = await axios.get<ProjectsResult>(url)
     return result.data
   },

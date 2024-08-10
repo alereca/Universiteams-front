@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Container, Flex } from '@mantine/core'
+import React, { useCallback } from 'react'
+import { Box, Flex, Text } from '@mantine/core'
 import CustomLink from '@/components/Common/CustomLink/CustomLink'
 import useSidebarStore from '../useSidebarStore'
 import { useMediaQuery } from '@mantine/hooks'
@@ -13,37 +13,49 @@ interface INavbarItem {
   small?: boolean
 }
 
-const NavbarItem = (props: INavbarItem) => {
+const NavbarItem = ({ text, textSecondLine, link, icon, small = false }: INavbarItem) => {
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
   const toggle = useSidebarStore((state) => state.toggle)
 
-  const itemContent = () => {
-    return (
-      <Flex
-        h={props.small ? 45 : 60}
-        bg="var(--mantine-color-gray-light)"
-        pl={20}
-        onClick={isMobile ? toggle : undefined}
-        align={'center'}
-        gap={20}>
-        {props.icon && props.icon}
-        {props.textSecondLine ? (
-          <Box>
-            <Container>{props.text}</Container>
-            <Container>{props.textSecondLine}</Container>
-          </Box>
-        ) : (
-          <Box>
-            <Container>{props.text}</Container>
-          </Box>
-        )}
-      </Flex>
-    )
+  const handleClick = () => {
+    if (isMobile) {
+      toggle()
+    }
   }
 
-  return (
-    <>{props.link ? <CustomLink link={props.link} content={itemContent()} /> : itemContent()}</>
+  const truncateTextStyle = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: 'block',
+  }
+
+  const itemContent = useCallback(
+    () => (
+      <Flex
+        h={small ? 45 : 60}
+        bg="var(--mantine-color-gray-light)"
+        pl={20}
+        onClick={handleClick}
+        align="center"
+        gap={20}
+        role="button"
+        tabIndex={0}>
+        <Box style={{ flexShrink: 0 }}>{icon && icon}</Box>
+        <Box style={{ flex: 1, minWidth: 0 }}>
+          <Text style={truncateTextStyle}>{text}</Text>
+          {textSecondLine && (
+            <Text size="sm" style={truncateTextStyle}>
+              {textSecondLine}
+            </Text>
+          )}
+        </Box>
+      </Flex>
+    ),
+    [text, textSecondLine, icon, small, isMobile]
   )
+
+  return link ? <CustomLink link={link} content={itemContent()} /> : itemContent()
 }
 
 export default NavbarItem

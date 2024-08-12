@@ -8,4 +8,13 @@ module.exports = withBundleAnalyzer({
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/projects',
+        permanent: true, // Sends a 308 Permanent Redirect status code
+      },
+    ]
+  },
 })

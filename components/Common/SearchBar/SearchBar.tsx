@@ -21,7 +21,9 @@ const SearchBar = () => {
   }
 
   useEffect(() => {
-    searchNowButton()
+    if (debouncedGeneralSearch.trim()) {
+      searchNowButton()
+    }
   }, [debouncedGeneralSearch])
 
   return (

@@ -25,7 +25,7 @@ const Layout = (props: Layout) => {
   useHotkeys([['mod+J', () => toggleColorScheme()]])
 
   // Validate pathname - Layout without navigation
-  if (Constants.noAuthRoutes.includes(pathName)) {
+  if (Constants.noNavbarRoutes.includes(pathName)) {
     return (
       <AppShell header={{ height: 60 }}>
         <AppShell.Header>

@@ -2,7 +2,7 @@
 
 // Routes that don't need auth
 // Also don't have navigation and search bars
-const noAuthRoutes = [
+const noNavbarRoutes = [
   '/account/forgotPassword',
   '/account/login',
   '/account/register',
@@ -11,5 +11,5 @@ const noAuthRoutes = [
   '/account/verifyEmail',
 ]
 
-const Constants = { noAuthRoutes }
+const Constants = { noNavbarRoutes }
 export default Constants

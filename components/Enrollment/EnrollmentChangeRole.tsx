@@ -1,12 +1,13 @@
 import React from 'react'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { Button, LoadingOverlay, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
-import { Projects, ProjectsQueryKey } from '../../services/projects'
-import { useQueryClient, useMutation } from '@tanstack/react-query'
-import Enrollment, { ProjectRole } from '../../entities/Enrollment'
-import { EnrollmentChangeRole } from '../../entities/HelpTypes/EnrollmentChangeRole'
+
+import Enrollment, { ProjectRole } from '@/entities/Enrollment/Enrollment'
+import { EnrollmentChangeRole } from '@/entities/Enrollment/EnrollmentChangeRole'
+import { Projects, ProjectsQueryKey } from '@/services/projects'
 
 interface EnrollmentChangeRoleProps {
   projectId: number

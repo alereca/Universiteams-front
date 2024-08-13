@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import ErrorNotFound from '@/components/Error/ErrorNotFound'
+import ErrorNotFound from '@/components/Common/Error/ErrorNotFound'
 
 const NotFound = () => {
   return <ErrorNotFound />

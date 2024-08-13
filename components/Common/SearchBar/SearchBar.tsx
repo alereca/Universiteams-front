@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { CloseButton, TextInput } from '@mantine/core'
-import { IconSearch } from '@tabler/icons-react'
-
-import { Url } from '@/services/url'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { CloseButton, TextInput } from '@mantine/core'
 import { useDebouncedValue, useMediaQuery } from '@mantine/hooks'
+
+import { IconSearch } from '@tabler/icons-react'
 import Theme from 'src/app/theme'
+import { Url } from '@/services/url'
 
 const SearchBar = () => {
   const router = useRouter()

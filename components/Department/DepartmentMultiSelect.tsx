@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, MultiSelect, Group, Button, ActionIcon, Select } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import { IconPlus } from '@tabler/icons-react'
-import { useState } from 'react'
-import SelectItem from '../../entities/HelpTypes/SelectItem'
-import ResearchDepartment from '../../entities/ResearchDepartment'
-import UserAffiliation, { UserAffiliationType } from '../../entities/UserAffiliation'
-import Theme from '../../src/app/theme'
 import { notifications } from '@mantine/notifications'
+
+import { IconPlus } from '@tabler/icons-react'
+import Theme from 'src/app/theme'
+
+import ResearchDepartment from '@/entities/ResearchDepartment'
+import SelectItem from '@/entities/HelpTypes/SelectItem'
+import UserAffiliation, { UserAffiliationType } from '@/entities/User/UserAffiliation'
 
 function translateUserAffiliationType(type: UserAffiliationType): string {
   switch (type) {

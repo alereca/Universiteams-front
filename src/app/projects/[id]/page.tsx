@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import ProjectDetails from '../../../../components/Project/ProjectDetails'
+import ProjectDetails from '@/components/Project/ProjectDetails'
 
 interface ProjectDetailsParams {
   params: { id: number }

@@ -1,10 +1,11 @@
 import React from 'react'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { LoadingOverlay, Button, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
-import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { Projects, ProjectsQueryKey } from '../../services/projects'
+
+import { Projects, ProjectsQueryKey } from '@/services/projects'
 import TextEditor from '../Common/TextEditor/TextEditor'
 
 interface EnrollmentCancelProps {

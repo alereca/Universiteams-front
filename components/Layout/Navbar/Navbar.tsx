@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { AppShell, Divider, ScrollArea } from '@mantine/core'
 import NavbarItem from './NavbarItem'
 import {
@@ -12,10 +13,10 @@ import {
   IconShare,
   IconTerminal2,
   IconUserCircle,
+  IconUsers,
 } from '@tabler/icons-react'
-import { CurrentUserQueryOptions } from '../../../services/currentUser'
-import { ProjectSortAttribute, RequestState } from '../../../entities/ProjectInList'
-import { useQuery } from '@tanstack/react-query'
+import { CurrentUserQueryOptions } from '@/services/currentUser'
+import { ProjectSortAttribute, RequestState } from '@/entities/Project/ProjectInList'
 
 const mockAppVersion = 'v1.0.0'
 
@@ -68,6 +69,9 @@ const Navbar = () => {
             link="/projects?isFavorite=true"
             icon={<IconFolderHeart size={iconSize} />}
           />
+        )}
+        {currentUser && (
+          <NavbarItem text="Usuarios" link="/users" icon={<IconUsers size={iconSize} />} />
         )}
       </AppShell.Section>
       <Divider />

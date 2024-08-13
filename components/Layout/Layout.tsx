@@ -1,9 +1,9 @@
 import React from 'react'
+import { usePathname } from 'next/navigation'
 import { AppShell, useComputedColorScheme, useMantineColorScheme } from '@mantine/core'
 import { useHotkeys } from '@mantine/hooks'
-import { usePathname } from 'next/navigation'
 
-import Constants from '../../utils/string/Constants'
+import Constants from 'utils/string/Constants'
 import Header from './Header/Header'
 import Navbar from './Navbar/Navbar'
 import useSidebarStore from './useSidebarStore'

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Head from 'next/head'
-import ErrorGeneric from '@/components/Error/ErrorGeneric'
+import ErrorGeneric from '@/components/Common/Error/ErrorGeneric'
 
 interface ErrorProps {
   error: Error & { digest?: string }

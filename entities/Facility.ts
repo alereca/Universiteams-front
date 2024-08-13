@@ -6,7 +6,7 @@ interface Facility {
   name: string
   abbreviation: string
   institution: Institution
-  researchDepartments: ResearchDepartment[]
+  researchDepartments?: ResearchDepartment[]
 }
 
 export default Facility

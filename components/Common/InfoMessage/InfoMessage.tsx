@@ -1,7 +1,7 @@
 import React from 'react'
-import MessageType from '@/entities/HelpTypes/MessageType'
 import { IconAlertOctagon, IconAlertTriangle, IconInfoCircle } from '@tabler/icons-react'
 import { Flex, Text } from '@mantine/core'
+import MessageType from '@/entities/HelpTypes/MessageType'
 
 interface MessageProps {
   text: string

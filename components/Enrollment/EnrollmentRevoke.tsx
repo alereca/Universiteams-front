@@ -1,14 +1,16 @@
 import React from 'react'
-import { useForm } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { Projects, ProjectsQueryKey } from '../../services/projects'
-import TextEditor from '../Common/TextEditor/TextEditor'
-import { EnrollmentRequestAdmin } from '../../entities/HelpTypes/EnrollmentRequestReject'
 import { Button, LoadingOverlay, Text } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
+
+import { Projects, ProjectsQueryKey } from '@/services/projects'
 import sanitizeHtml from 'sanitize-html'
-import Enrollment from '../../entities/Enrollment'
+
+import Enrollment from '@/entities/Enrollment/Enrollment'
+import { EnrollmentRequestAdmin } from '@/entities/Enrollment/EnrollmentRequestReject'
+import TextEditor from '../Common/TextEditor/TextEditor'
 
 interface EnrollmentRequestProps {
   projectId: number

@@ -5,7 +5,7 @@ import LoginRegisterType from '@/entities/HelpTypes/LoginRegisterType'
 import { CurrentUserInfo } from './currentUser'
 import { ResetPassword } from '../entities/HelpTypes/ResetPassword'
 import Interest from '../entities/Interest'
-import UserAffiliation, { UserAffiliationType } from '../entities/UserAffiliation'
+import UserAffiliation, { UserAffiliationType } from '../entities/User/UserAffiliation'
 
 const prefix = `${Env.backendAPI}/auth`
 

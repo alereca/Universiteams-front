@@ -1,14 +1,16 @@
 import React from 'react'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
+import { Button, LoadingOverlay, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
-import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { EnrollmentRequestsQueryKey, Projects } from '../../services/projects'
-import TextEditor from '../Common/TextEditor/TextEditor'
-import { EnrollmentRequestAdmin } from '../../entities/HelpTypes/EnrollmentRequestReject'
-import { EnrollmentRequestShow } from '../../entities/HelpTypes/EnrollmentRequestShow'
-import { Button, LoadingOverlay, Text } from '@mantine/core'
 import { modals } from '@mantine/modals'
+
+import { EnrollmentRequestsQueryKey, Projects } from '@/services/projects'
 import sanitizeHtml from 'sanitize-html'
+
+import { EnrollmentRequestAdmin } from '@/entities/Enrollment/EnrollmentRequestReject'
+import { EnrollmentRequestShow } from '@/entities/Enrollment/EnrollmentRequestShow'
+import TextEditor from '../Common/TextEditor/TextEditor'
 
 interface AdminMutation {
   userId: number

@@ -1,22 +1,24 @@
 import React, { useEffect, useMemo } from 'react'
-
+import { AxiosError } from 'axios'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Alert, Button, Center, Container, Loader, Paper, Stack, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { notifications } from '@mantine/notifications'
+
+import { IconExclamationCircle } from '@tabler/icons-react'
+import { InterestQueryKey, Interests } from '@/services/interests'
+
 import {
   Account,
   ResearchDepartmentInput,
   ProfileInputDto as UserRegisterDto,
-} from '../../services/account'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import MultiSelectCreatable from '../Common/Form/MultiSelectCreatable'
-import { notifications } from '@mantine/notifications'
-import { DepartmentQueryKey, ResearchDepartments } from '../../services/departments'
-import { InterestQueryKey, Interests } from '../../services/interests'
-import SelectItem from '../../entities/HelpTypes/SelectItem'
-import { IconExclamationCircle } from '@tabler/icons-react'
-import { AxiosError } from 'axios'
+} from '@/services/account'
+import { DepartmentQueryKey, ResearchDepartments } from '@/services/departments'
+
 import DepartmentMultiSelect from '../Department/DepartmentMultiSelect'
-import { UserAffiliationType } from '../../entities/UserAffiliation'
+import MultiSelectCreatable from '../Common/Form/MultiSelectCreatable'
+import SelectItem from '@/entities/HelpTypes/SelectItem'
+import { UserAffiliationType } from '@/entities/User/UserAffiliation'
 
 type ProfileForm = {
   interests: SelectItem[]

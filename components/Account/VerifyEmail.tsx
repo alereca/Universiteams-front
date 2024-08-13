@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Loader, Text, Alert, Anchor, Box, Center } from '@mantine/core'
-import { IconAlertCircle, IconArrowLeft, IconInfoCircle } from '@tabler/icons-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Loader, Text, Alert, Anchor, Box, Center } from '@mantine/core'
+
+import { IconAlertCircle, IconArrowLeft, IconInfoCircle } from '@tabler/icons-react'
 import { Account } from '@/services/account'
-import { CurrentUserQueryOptions } from '../../services/currentUser'
+import { CurrentUserQueryOptions } from '@/services/currentUser'
 
 const VerifyEmail = () => {
   const router = useRouter()

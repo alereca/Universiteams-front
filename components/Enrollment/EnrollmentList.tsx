@@ -1,4 +1,6 @@
 import React from 'react'
+import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
 import {
   ActionIcon,
   Badge,
@@ -9,15 +11,15 @@ import {
   rem,
   useMantineColorScheme,
 } from '@mantine/core'
-import styles from './EnrollmentList.module.css'
-import Enrollment from '../../entities/Enrollment'
-import { useRouter } from 'next/navigation'
-import { IconDots, IconHierarchy3, IconTrash } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
-import { EnrollmentRevoke } from './EnrollmentRevoke'
+
+import { IconDots, IconHierarchy3, IconTrash } from '@tabler/icons-react'
+import { CurrentUserQueryOptions } from '@/services/currentUser'
+import styles from './EnrollmentList.module.css'
+
+import Enrollment from '@/entities/Enrollment/Enrollment'
 import { EnrollmentChangeRoleForm } from './EnrollmentChangeRole'
-import { useQuery } from '@tanstack/react-query'
-import { CurrentUserQueryOptions } from '../../services/currentUser'
+import { EnrollmentRevoke } from './EnrollmentRevoke'
 
 interface EnrollmentListProps {
   projectId: number
@@ -36,7 +38,7 @@ export const EnrollmentList: React.FC<EnrollmentListProps> = ({
   const { data: currentUser } = useQuery(CurrentUserQueryOptions.currentUser())
 
   const handleMemberClick = (userId: number) => {
-    router.push(`/projects?user=${userId}`)
+    router.push(`/users/${userId}`)
   }
 
   const handleDepartmentBadgeClick = (

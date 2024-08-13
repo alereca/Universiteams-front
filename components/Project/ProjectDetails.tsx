@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Alert,
   ActionIcon,
@@ -11,8 +13,8 @@ import {
   Tabs,
   Loader,
 } from '@mantine/core'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { EnrollmentRequestsQueryKey, Projects, ProjectsQueryKey } from '../../services/projects'
+import { notifications } from '@mantine/notifications'
+import { modals } from '@mantine/modals'
 import {
   IconHeartFilled,
   IconHeart,
@@ -22,19 +24,20 @@ import {
   IconCheck,
   IconBubbleText,
 } from '@tabler/icons-react'
-import EnrollmentButton from '../../components/Enrollment/EnrollmentButton'
+
+import { CurrentUserQueryOptions } from '@/services/currentUser'
+import { EnrollmentRequestsQueryKey, Projects, ProjectsQueryKey } from '@/services/projects'
+
 import Dates from '../../utils/string/Dates'
-import { notifications } from '@mantine/notifications'
-import { NotLoggedError } from '../../components/Account/NotLoggedError'
-import { verifyEmailNotification } from '../../components/Account/VerifyEmailNotification'
-import { CurrentUserQueryOptions } from '../../services/currentUser'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import SkeletonFull from '../../components/Loader/SkeletonFull'
+import { EnrollmentRequestShow } from '@/entities/Enrollment/EnrollmentRequestShow'
 import sanitizeHtml from 'sanitize-html'
-import { modals } from '@mantine/modals'
-import { EnrollmentRequestShow } from '../../entities/HelpTypes/EnrollmentRequestShow'
-import { EnrollmentRequestAdminForm } from '../Enrollment/EnrollmentRequestAdmin'
+
+import EnrollmentButton from '@/components/Enrollment/EnrollmentButton'
 import { EnrollmentList } from '../Enrollment/EnrollmentList'
+import { EnrollmentRequestAdminForm } from '../Enrollment/EnrollmentRequestAdmin'
+import { NotLoggedError } from '@/components/Account/NotLoggedError'
+import SkeletonFull from '@/components/Common/Loader/SkeletonFull'
+import { verifyEmailNotification } from '@/components/Account/VerifyEmailNotification'
 
 interface ProjectDetailsParams {
   id: number

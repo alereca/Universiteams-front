@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
   CheckIcon,
   CloseButton,
@@ -10,8 +9,8 @@ import {
   ScrollArea,
   useCombobox,
 } from '@mantine/core'
-import SelectItem from '../../../entities/HelpTypes/SelectItem'
 import { useUncontrolled } from '@mantine/hooks'
+import SelectItem from '@/entities/HelpTypes/SelectItem'
 
 /**
  * MultiSelectCreatableProps interface represents the props for the MultiSelectCreatable component.

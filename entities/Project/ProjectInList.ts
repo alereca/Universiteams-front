@@ -1,6 +1,6 @@
-import Enrollment from './Enrollment'
-import Interest from './Interest'
-import ResearchDepartment from './ResearchDepartment'
+import Enrollment from '@/entities/Enrollment/Enrollment'
+import Interest from '@/entities/Interest'
+import ResearchDepartment from '@/entities/ResearchDepartment'
 
 export enum ProjectSortAttribute {
   Name = 'name',

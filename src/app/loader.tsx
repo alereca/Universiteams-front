@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import SkeletonFull from '@/components/Loader/SkeletonFull'
+import SkeletonFull from '@/components/Common/Loader/SkeletonFull'
 
 const Loading = () => {
   return <SkeletonFull />

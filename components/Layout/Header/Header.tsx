@@ -1,10 +1,10 @@
 import React from 'react'
+import Image from 'next/image'
 import { ActionIcon, Burger, Center, Container, Group } from '@mantine/core'
 import { IconSunMoon } from '@tabler/icons-react'
 
 import SearchBar from '@/components/Common/SearchBar/SearchBar'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import useSidebarStore from '../useSidebarStore'
 
 interface HeaderProps {

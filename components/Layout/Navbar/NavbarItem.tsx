@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
 import { Box, Flex, Text } from '@mantine/core'
-import CustomLink from '@/components/Common/CustomLink/CustomLink'
-import useSidebarStore from '../useSidebarStore'
 import { useMediaQuery } from '@mantine/hooks'
-import Theme from '../../../src/app/theme'
+
+import CustomLink from '@/components/Common/CustomLink/CustomLink'
+import Theme from 'src/app/theme'
+import useSidebarStore from '../useSidebarStore'
 
 interface INavbarItem {
   text: string

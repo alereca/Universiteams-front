@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Select, Stack, Grid, ActionIcon, Group, Switch, MultiSelect } from '@mantine/core'
-import { DateInput } from '@mantine/dates'
+import { Select, Stack, Grid, ActionIcon, Group, MultiSelect } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useMediaQuery } from '@mantine/hooks'
 
@@ -12,29 +11,24 @@ import { Order } from '@/entities/HelpTypes/Order'
 import SelectItem from '@/entities/HelpTypes/SelectItem'
 import { Url } from '@/services/url'
 
-interface ProjectFilterContentProps {
+interface UserFilterContentProps {
   sortAttributes: SelectItem[]
+  interests: SelectItem[]
   institutions: SelectItem[]
   facilities: SelectItem[]
   departments: SelectItem[]
-  interests: SelectItem[]
-  users: SelectItem[]
 }
 
-const ProjectFilterContent = (props: ProjectFilterContentProps) => {
+const UserFilterContent = (props: UserFilterContentProps) => {
   const form = useForm({
     initialValues: {
       generalSearch: '',
       sortBy: '',
       order: '' as Order,
+      interests: [] as string[],
       university: '',
       facility: '',
       department: '',
-      user: '',
-      interests: [] as string[],
-      type: '',
-      isDown: false,
-      dateFrom: null as Date | null,
     },
   })
 
@@ -45,14 +39,10 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
       generalSearch: searchQuery.get('generalSearch') ?? '',
       sortBy: searchQuery.get('sortBy') ?? '',
       order: (searchQuery.get('order') as Order) ?? '',
+      interests: searchQuery.getAll('interest') ?? [],
       university: searchQuery.get('university') ?? '',
       facility: searchQuery.get('facility') ?? '',
       department: searchQuery.get('department') ?? '',
-      user: searchQuery.get('user') ?? '',
-      interests: searchQuery.getAll('interest') ?? [],
-      type: searchQuery.get('type') ?? '',
-      isDown: searchQuery.get('isDown') === 'true',
-      dateFrom: searchQuery.get('dateFrom') ? new Date(searchQuery.get('dateFrom')!) : null,
     })
   }, [searchQuery])
 
@@ -75,30 +65,8 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
     Url.setUrlParam(router, pathname, searchQuery, 'department', value)
   }
 
-  const handleUserChange = (value: string | null) => {
-    Url.setUrlParam(router, pathname, searchQuery, 'user', value)
-  }
-
   const handleInterestsChange = (value: string[]) => {
     Url.replaceArrayInUrl(router, pathname, searchQuery, 'interest', value)
-  }
-
-  const handleTypeChange = (value: string | null) => {
-    Url.setUrlParam(router, pathname, searchQuery, 'type', value)
-  }
-
-  const handleIsDownChange = (event: ChangeEvent<HTMLInputElement>) => {
-    Url.setUrlParam(
-      router,
-      pathname,
-      searchQuery,
-      'isDown',
-      event.target.checked ? 'true' : 'false'
-    )
-  }
-
-  const handleDateInputChange = (value: Date | null) => {
-    Url.setUrlParam(router, pathname, searchQuery, 'dateFrom', value ? value.toISOString() : null)
   }
 
   const handleOrderChange = () => {
@@ -140,6 +108,21 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
               </ActionIcon>
             </Grid.Col>
           </Grid>
+
+          <MultiSelect
+            label="Intereses"
+            placeholder={form.values.interests.length === 0 ? 'Ej: "Inteligencia Artificial"' : ''}
+            data={[{ value: '', label: '' }].concat(
+              props.interests.map((attr) => ({
+                value: attr.value,
+                label: attr.label,
+              }))
+            )}
+            clearable
+            searchable
+            value={form.values.interests}
+            onChange={handleInterestsChange}
+          />
 
           <Select
             label="Universidad"
@@ -186,61 +169,6 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             onChange={handleDepartmentChange}
           />
 
-          <Select
-            label="Usuario"
-            placeholder='Ej: "Juan Perez"'
-            data={[{ value: '', label: '' }].concat(
-              props.users.map((attr) => ({
-                value: attr.value,
-                label: attr.label,
-              }))
-            )}
-            clearable
-            searchable
-            value={form.values.user}
-            onChange={handleUserChange}
-          />
-
-          <MultiSelect
-            label="Intereses"
-            placeholder={form.values.interests.length === 0 ? 'Ej: "Inteligencia Artificial"' : ''}
-            data={[{ value: '', label: '' }].concat(
-              props.interests.map((attr) => ({
-                value: attr.value,
-                label: attr.label,
-              }))
-            )}
-            clearable
-            searchable
-            value={form.values.interests}
-            onChange={handleInterestsChange}
-          />
-
-          <Select
-            label="Tipo"
-            placeholder='Ej: "Formal"'
-            data={['', 'Formal', 'Informal']}
-            clearable
-            searchable
-            value={form.values.type}
-            onChange={handleTypeChange}
-          />
-
-          <Switch
-            checked={form.values.isDown}
-            onChange={handleIsDownChange}
-            label="Descontinuados"
-            mt="xs"
-          />
-
-          <DateInput
-            label="Creados desde"
-            clearable
-            placeholder='Ej: "Febrero 15, 2024"'
-            value={form.values.dateFrom}
-            onChange={handleDateInputChange}
-          />
-
           <Group grow mt="xs">
             <ActionIcon color="red" onClick={reset}>
               <IconTrash />
@@ -252,4 +180,4 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
   )
 }
 
-export default ProjectFilterContent
+export default UserFilterContent

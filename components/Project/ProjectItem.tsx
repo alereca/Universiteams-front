@@ -1,20 +1,23 @@
 import React from 'react'
-import { ActionIcon, Badge, Card, Group, Text, useMantineColorScheme } from '@mantine/core'
-import Dates from 'utils/string/Dates'
-import ProjectInList from '@/entities/ProjectInList'
-import InfoMessage from '../Common/InfoMessage/InfoMessage'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Url } from '@/services/url'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Projects, ProjectsQueryKey } from '@/services/projects'
-import { IconBell, IconHeart, IconHeartFilled } from '@tabler/icons-react'
+import { ActionIcon, Badge, Card, Group, Text, useMantineColorScheme } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
-import { CurrentUserQueryOptions } from '../../services/currentUser'
-import { NotLoggedError } from '../Account/NotLoggedError'
-import EnrollmentButton from '../Enrollment/EnrollmentButton'
-import { verifyEmailNotification } from '../Account/VerifyEmailNotification'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+
+import Dates from 'utils/string/Dates'
+import { IconBell, IconHeart, IconHeartFilled } from '@tabler/icons-react'
 import styles from './ProjectItem.module.css'
+
+import { CurrentUserQueryOptions } from '@/services/currentUser'
+import { Projects, ProjectsQueryKey } from '@/services/projects'
+import { Url } from '@/services/url'
+
+import EnrollmentButton from '../Enrollment/EnrollmentButton'
+import InfoMessage from '../Common/InfoMessage/InfoMessage'
+import { NotLoggedError } from '../Account/NotLoggedError'
 import { ProjectDetailsTabs } from './ProjectDetails'
+import ProjectInList from '@/entities/Project/ProjectInList'
+import { verifyEmailNotification } from '../Account/VerifyEmailNotification'
 
 interface ProjectItemProps {
   project?: ProjectInList

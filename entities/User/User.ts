@@ -1,4 +1,5 @@
-import Interest from './Interest'
+import Enrollment from '@/entities/Enrollment/Enrollment'
+import Interest from '@/entities/Interest'
 import UserAffiliation from './UserAffiliation'
 
 interface User {
@@ -8,6 +9,7 @@ interface User {
   email: string
   userAffiliations: UserAffiliation[]
   interests: Interest[]
+  enrollments: Enrollment[]
 }
 
 export default User

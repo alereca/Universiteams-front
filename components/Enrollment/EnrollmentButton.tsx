@@ -1,5 +1,9 @@
 import React from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ActionIcon, Menu } from '@mantine/core'
+import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
+
 import {
   IconUserPlus,
   IconSend,
@@ -9,20 +13,18 @@ import {
   IconPencil,
   IconEye,
 } from '@tabler/icons-react'
-import { RequestState } from '../../entities/ProjectInList'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ProjectsQueryKey, Projects } from '../../services/projects'
-import { NotLoggedError } from '../Account/NotLoggedError'
-import { EnrollmentRequestCreate } from './EnrollmentRequest'
-import { CurrentUserQueryOptions } from '../../services/currentUser'
-import { verifyEmailNotification as verifyEmailErrorNotification } from '../Account/VerifyEmailNotification'
-import { UnenrollModal } from './Unenroll'
-import { EnrollmentRequestRevision } from './EnrollmentRequestRevision'
-import { EnrollmentRequestRejected } from './EnrollmentRequestRejected'
+import { CurrentUserQueryOptions } from '@/services/currentUser'
+import { ProjectsQueryKey, Projects } from '@/services/projects'
 import sanitize from 'sanitize-html'
+
+import { EnrollmentRequestCreate } from './EnrollmentRequest'
+import { EnrollmentRequestRejected } from './EnrollmentRequestRejected'
+import { EnrollmentRequestRevision } from './EnrollmentRequestRevision'
 import { EnrollmentRevoked } from './EnrollmentRevoked'
+import { NotLoggedError } from '../Account/NotLoggedError'
+import { RequestState } from '@/entities/Project/ProjectInList'
+import { UnenrollModal } from './Unenroll'
+import { verifyEmailNotification as verifyEmailErrorNotification } from '../Account/VerifyEmailNotification'
 
 interface ActionIconComponentProps {
   projectId: number

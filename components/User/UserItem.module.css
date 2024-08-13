@@ -1,0 +1,20 @@
+.card {
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+}
+
+.cardLight:hover {
+  background-color: #f5f8fa;
+}
+
+.cardDark {
+  border-color: #2c2e33;
+}
+
+.cardDark:hover {
+  background-color: #25262b;
+}

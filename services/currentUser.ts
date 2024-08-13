@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Env from '../utils/config/Env'
-import { QueryOptions, queryOptions } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 
 export interface CurrentUserInfo {
   id: number

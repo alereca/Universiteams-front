@@ -1,22 +1,33 @@
 import React, { useEffect, useMemo, useState, MouseEvent } from 'react'
-import { Button, Text, Card, Loader, Alert, Anchor, Box, Center } from '@mantine/core'
-import { useForm } from '@mantine/form'
-import { AxiosError } from 'axios'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { PasswordInput } from '@mantine/core'
+import { AxiosError } from 'axios'
+import {
+  Alert,
+  Anchor,
+  Box,
+  Button,
+  Card,
+  Center,
+  Loader,
+  PasswordInput,
+  Text,
+} from '@mantine/core'
+import { useForm } from '@mantine/form'
+
+import { IconAlertCircle, IconArrowLeft } from '@tabler/icons-react'
+import { Account } from '@/services/account'
+import { CurrentUserQueryOptions } from '@/services/currentUser'
 import {
   getPasswordStrength,
   getStrengthColorAndPhrase,
   passwordValidation,
   requirements,
 } from '@/services/password'
+
+import { EmailTokenPayload } from '@/entities/HelpTypes/EmailTokenPayload'
 import PasswordStrength from './PasswordStrength'
 import Requirement from './Requirement'
-import { IconAlertCircle, IconArrowLeft } from '@tabler/icons-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Account } from '@/services/account'
-import { CurrentUserQueryOptions } from '../../services/currentUser'
-import { EmailTokenPayload } from '../../entities/HelpTypes/EmailTokenPayload'
 
 const parseJwt = (token: string) => {
   if (!token) {

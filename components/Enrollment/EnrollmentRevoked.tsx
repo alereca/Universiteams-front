@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
-import { Button, Group, LoadingOverlay, Text } from '@mantine/core'
-import sanitize from 'sanitize-html'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Projects, ProjectsQueryKey } from '../../services/projects'
-import { notifications } from '@mantine/notifications'
+import { Button, Group, LoadingOverlay, Text } from '@mantine/core'
 import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
+
+import { Projects, ProjectsQueryKey } from '@/services/projects'
+import sanitize from 'sanitize-html'
 
 interface EnrollmentRevokedProps {
   projectId: number

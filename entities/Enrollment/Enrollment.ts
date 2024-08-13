@@ -1,5 +1,5 @@
-import ProjectInList from './ProjectInList'
-import User from './User'
+import ProjectInList from '@/entities/Project/ProjectInList'
+import User from '@/entities/User/User'
 
 export enum ProjectRole {
   Leader = 'Leader',

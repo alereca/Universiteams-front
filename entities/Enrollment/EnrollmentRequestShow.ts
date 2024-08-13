@@ -1,4 +1,4 @@
-import User from '../User'
+import User from '@/entities/User/User'
 
 export interface EnrollmentRequestShow {
   id: number

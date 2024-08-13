@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { AxiosError } from 'axios'
 
-import RegEx from '../../utils/string/RegEx'
+import RegEx from 'utils/string/RegEx'
 import {
   getPasswordStrength,
   getStrengthColorAndPhrase,

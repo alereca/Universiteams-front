@@ -1,21 +1,17 @@
 import axios from 'axios'
 import Env from 'utils/config/Env'
-
-import ProjectsResult from '@/entities/ProjectsResult'
-import { ProjectSortAttribute, RequestState } from '../entities/ProjectInList'
-import { EnrollmentRequestInput } from '../entities/HelpTypes/EnrollmentRequestInput'
 import { keepPreviousData, queryOptions } from '@tanstack/react-query'
-import Project from '../entities/Project'
-import { EnrollmentRequestsShow } from '../entities/HelpTypes/EnrollmentRequestsShow'
-import { EnrollmentRequestAdmin as EnrollmentRequestAdmin } from '../entities/HelpTypes/EnrollmentRequestReject'
-import { EnrollmentChangeRole } from '../entities/HelpTypes/EnrollmentChangeRole'
+
+import { EnrollmentChangeRole } from '@/entities/Enrollment/EnrollmentChangeRole'
+import { EnrollmentRequestAdmin } from '@/entities/Enrollment/EnrollmentRequestReject'
+import { EnrollmentRequestInput } from '../entities/Enrollment/EnrollmentRequestInput'
+import { EnrollmentRequestsShow } from '@/entities/Enrollment/EnrollmentRequestsShow'
+import { Order } from '@/entities/HelpTypes/Order'
+import Project from '@/entities/Project/Project'
+import ProjectsResult from '@/entities/Project/ProjectsResult'
+import { ProjectSortAttribute, RequestState } from '@/entities/Project/ProjectInList'
 
 const prefix = `${Env.backendAPI}/projects`
-
-export enum Order {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
 
 export interface GetProjectsInput {
   generalSearchTerm?: string

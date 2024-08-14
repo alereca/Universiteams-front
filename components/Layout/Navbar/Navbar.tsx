@@ -2,21 +2,21 @@ import React from 'react'
 import { AppShell, Divider, rem, ScrollArea } from '@mantine/core'
 import NavbarItem from './NavbarItem'
 import {
-  IconAlertCircle,
-  IconBuildingCommunity,
+  IconBuilding,
   IconBulb,
   IconDoorExit,
   IconEdit,
-  IconFileDescription,
   IconFolderHeart,
   IconFolders,
+  IconMapPin,
+  IconSchool,
   IconSend,
-  IconShare,
+  IconTent,
   IconTerminal2,
   IconUserCircle,
   IconUsers,
 } from '@tabler/icons-react'
-import { CurrentUserQueryOptions } from '../../../services/currentUser'
+import { CurrentUserQueryOptions, UserSystemRole } from '../../../services/currentUser'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useDisclosure } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
@@ -116,20 +116,30 @@ const Navbar = () => {
           <NavbarItem text="Usuarios" link="/users" icon={<IconUsers size={iconSize} />} />
         )}
       </AppShell.Section>
-      <Divider />
-      <AppShell.Section grow component={ScrollArea}>
-        <NavbarItem
-          text="Sobre Nosotros"
-          link="/about"
-          icon={<IconBuildingCommunity size={iconSize} />}
-        />
-        <NavbarItem
-          text="Términos y Condiciones"
-          link="/terminos"
-          icon={<IconFileDescription size={iconSize} />}
-        />
-        <NavbarItem text="Compartir Aplicación" icon={<IconShare size={iconSize} />} />
-        <NavbarItem text="Reportar un Bug" icon={<IconAlertCircle size={iconSize} />} />
+      {currentUser && currentUser.systemRole === UserSystemRole.ADMIN && (
+        <>
+          <Divider />
+          <AppShell.Section component={ScrollArea}>
+            <NavbarItem
+              text="Instituciones"
+              link="/institutions"
+              icon={<IconSchool size={iconSize} />}
+            />
+            <NavbarItem
+              text="Regionales"
+              link="/facilities"
+              icon={<IconMapPin size={iconSize} />}
+            />
+            <NavbarItem
+              text="Departamentos"
+              link="/departments"
+              icon={<IconBuilding size={iconSize} />}
+            />
+          </AppShell.Section>
+        </>
+      )}
+      <AppShell.Section grow>
+        <NavbarItem text="Sobre Nosotros" link="/about" icon={<IconTent size={iconSize} />} />
       </AppShell.Section>
       <Divider />
       <AppShell.Section>

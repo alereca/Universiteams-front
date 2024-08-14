@@ -4,20 +4,18 @@ import { NextPage } from 'next'
 import { useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { Center, Pagination } from '@mantine/core'
-
 import { ProjectQueryOptions } from '@/services/projects'
 import { CurrentUserQueryOptions } from '@/services/currentUser'
 import { DepartmentQueryKey, ResearchDepartments } from '@/services/departments'
-import { Facilities } from '@/services/facilities'
-import { Institutions } from '@/services/institutions'
+import { Facilities, FacilitiesQueryKey } from '@/services/facilities'
+import { Institutions, InstitutionQueryKey } from '@/services/institutions'
 import { InterestQueryKey, Interests } from '@/services/interests'
 import { Users } from '@/services/users'
-
 import Filter from '@/components/Common/Filter/Filter'
 import ProjectFilterContent from '@/components/Project/ProjectFilterContent'
 import ProjectsList from '@/components/Project/ProjectsList'
 import { Order } from '@/entities/HelpTypes/Order'
-import { ProjectSortAttribute, RequestState } from '@/entities/Project/ProjectInList'
+import { ProjectSortAttribute, RequestState } from '../../../entities/Project/ProjectInList'
 
 const ProjectsPage: NextPage = () => {
   const projectsPerPage = 5
@@ -50,7 +48,7 @@ const ProjectsPage: NextPage = () => {
   })
 
   const facilitiesQuery = useQuery({
-    queryKey: ['facilities', searchQuery.get('university')],
+    queryKey: [FacilitiesQueryKey, searchQuery.get('university')],
     queryFn: () =>
       Facilities.getFacilities({ institutionId: parseInt(searchQuery.get('university')!) }),
     enabled: !!searchQuery.get('university'),
@@ -66,7 +64,7 @@ const ProjectsPage: NextPage = () => {
   })
 
   const institutionsQuery = useQuery({
-    queryKey: ['institutions'],
+    queryKey: [InstitutionQueryKey],
     queryFn: Institutions.getInstitutions,
   })
 

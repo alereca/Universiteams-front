@@ -1,15 +1,13 @@
 //////////// VALIDATION TOOLS ////////////
-import RegEx from './RegEx'
-
-const email = (value?: string): boolean | void => {
-  if (!value) return
-  return RegEx.email.test(value)
+const url = (value?: string) => {
+  if (!value) return null
+  try {
+    new URL(value)
+    return null
+  } catch {
+    return 'La dirección web no es válida'
+  }
 }
 
-const password = (value?: string): boolean | void => {
-  if (!value) return
-  return RegEx.password.test(value)
-}
-
-const Validation = { email, password }
+const Validation = { url }
 export default Validation

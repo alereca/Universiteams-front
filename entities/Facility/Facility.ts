@@ -1,10 +1,11 @@
-import Institution from './Institution'
-import ResearchDepartment from './ResearchDepartment'
+import Institution from '../Institution'
+import ResearchDepartment from '../ResearchDepartment'
 
 interface Facility {
   id: number
   name: string
   abbreviation: string
+  web?: string
   institution: Institution
   researchDepartments?: ResearchDepartment[]
 }

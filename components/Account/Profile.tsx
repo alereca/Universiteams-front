@@ -13,7 +13,11 @@ import {
   ResearchDepartmentInput,
   ProfileInputDto as UserRegisterDto,
 } from '@/services/account'
-import { DepartmentQueryKey, ResearchDepartments } from '@/services/departments'
+import {
+  DepartmentQueryKey,
+  ResearchDepartmentRelations,
+  ResearchDepartments,
+} from '@/services/departments'
 
 import DepartmentMultiSelect from '../Department/DepartmentMultiSelect'
 import MultiSelectCreatable from '../Common/Form/MultiSelectCreatable'
@@ -72,7 +76,7 @@ const Profile = () => {
     queryKey: [DepartmentQueryKey],
     queryFn: () =>
       ResearchDepartments.getResearchDepartments({
-        relations: ['facility', 'facility.institution'],
+        relations: [ResearchDepartmentRelations.facility, ResearchDepartmentRelations.institution],
       }),
     enabled: userProfileErr === null,
   })

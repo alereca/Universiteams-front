@@ -7,7 +7,7 @@ import { Center, Pagination } from '@mantine/core'
 
 import { CurrentUserQueryOptions } from '@/services/currentUser'
 import { DepartmentQueryKey, ResearchDepartments } from '@/services/departments'
-import { Facilities } from '@/services/facilities'
+import { Facilities, FacilitiesQueryKey } from '@/services/facilities'
 import { Institutions } from '@/services/institutions'
 import { Interests } from '@/services/interests'
 import { GetUsersInput, Users } from '@/services/users'
@@ -17,10 +17,10 @@ import Interest from '@/entities/Interest'
 import UserFilterContent from '@/components/User/UserFilterContent'
 import UserList from '@/components/User/UserList'
 import { UserSortAttribute } from '@/entities/User/UserInList'
-import Facility from '@/entities/Facility'
 import ResearchDepartment from '@/entities/ResearchDepartment'
 import Institution from '@/entities/Institution'
 import { Order } from '@/entities/HelpTypes/Order'
+import Facility from '../../../entities/Facility/Facility'
 
 const UsersPage: NextPage = () => {
   const usersPerPage = 5
@@ -42,7 +42,7 @@ const UsersPage: NextPage = () => {
   }, [searchQuery])
 
   const facilitiesQuery = useQuery({
-    queryKey: ['facilities', searchQuery.get('university')],
+    queryKey: [FacilitiesQueryKey, searchQuery.get('university')],
     queryFn: () =>
       Facilities.getFacilities({ institutionId: parseInt(searchQuery.get('university')!) }),
     enabled: !!searchQuery.get('university'),

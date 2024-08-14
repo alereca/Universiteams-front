@@ -102,7 +102,10 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
       }
 
       // Admin
-      if (!project?.requestEnrollmentCount) {
+      if (
+        project?.requestEnrollmentCount === undefined ||
+        project?.requestEnrollmentCount === null
+      ) {
         notifications.show({
           title: 'Debes tener el rol de líder de proyecto para eliminar este proyecto',
           color: 'red',
@@ -117,6 +120,9 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [ProjectsQueryKey] })
+      router.push(
+        '/projects?requestState=Accepted&requestState=Kicked&sortBy=requestEnrollmentCount&inAscendingOrder=false'
+      )
     },
   })
 

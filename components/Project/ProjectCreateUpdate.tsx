@@ -45,6 +45,7 @@ const ProjectCreateUpdate = (props?: ProjectCreateUpdateProps) => {
   const currentProjectQuery = useQuery({
     queryKey: [ProjectsQueryKey, props?.id],
     queryFn: () => Projects.getProject(props?.id),
+    enabled: !!props?.id,
   })
 
   const currentProject = useMemo(() => currentProjectQuery.data, [currentProjectQuery.data])

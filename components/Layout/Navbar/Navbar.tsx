@@ -40,7 +40,7 @@ const Navbar = () => {
   const logoutMutation = useMutation({
     mutationFn: () => Account.logout(),
     onSuccess: () => {
-      router.push('/')
+      router.push('/account/login')
     },
     onError: (error) => {
       console.error(error)

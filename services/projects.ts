@@ -75,6 +75,10 @@ export const Projects = {
   },
 
   async newProject(project: ProjectNewRequest): Promise<ProjectNewResponse> {
+    // Cast to any because of the way the API is expecting the data
+    project.interestsIds = project.interestsIds.map((id) => +id) as any[]
+    project.researchDepartmentsIds = project.researchDepartmentsIds.map((id) => +id) as any[]
+
     const result = await axios.post<ProjectNewResponse>(prefix, project)
     return result.data
   },

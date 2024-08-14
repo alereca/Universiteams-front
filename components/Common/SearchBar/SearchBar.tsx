@@ -16,13 +16,9 @@ const SearchBar = () => {
 
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
 
-  const searchNowButton = () => {
-    Url.setUrlParam(router, '/projects', searchQuery, 'generalSearch', generalSearch)
-  }
-
   useEffect(() => {
     if (debouncedGeneralSearch.trim()) {
-      searchNowButton()
+      Url.setUrlParam(router, '/projects', searchQuery, 'generalSearch', generalSearch)
     }
   }, [debouncedGeneralSearch])
 
@@ -40,7 +36,10 @@ const SearchBar = () => {
         rightSection={
           <CloseButton
             aria-label="Limpiar búsqueda"
-            onClick={() => setGeneralSearch('')}
+            onClick={() => {
+              setGeneralSearch('')
+              Url.setUrlParam(router, '/projects', searchQuery, 'generalSearch', null)
+            }}
             style={{ display: generalSearch ? undefined : 'none' }}
           />
         }

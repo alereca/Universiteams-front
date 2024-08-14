@@ -1,11 +1,12 @@
 import React from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { AppShell, Divider, ScrollArea } from '@mantine/core'
+import { AppShell, Divider, Menu, rem, ScrollArea } from '@mantine/core'
 import NavbarItem from './NavbarItem'
 import {
   IconAlertCircle,
   IconBuildingCommunity,
   IconBulb,
+  IconDoorExit,
+  IconEdit,
   IconFileDescription,
   IconFolderHeart,
   IconFolders,
@@ -15,8 +16,15 @@ import {
   IconUserCircle,
   IconUsers,
 } from '@tabler/icons-react'
-import { CurrentUserQueryOptions } from '@/services/currentUser'
-import { ProjectSortAttribute, RequestState } from '@/entities/Project/ProjectInList'
+import { CurrentUserQueryOptions } from '../../../services/currentUser'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMediaQuery } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
+import { Link } from 'tabler-icons-react'
+import { RequestState, ProjectSortAttribute } from '../../../entities/Project/ProjectInList'
+import { Account } from '../../../services/account'
+import Theme from '../../../src/app/theme'
+import UserBanner from './UserBanner'
 
 const mockAppVersion = 'v1.0.0'
 
@@ -26,16 +34,59 @@ const iconSize = 40
 const Navbar = () => {
   const { data: currentUser } = useQuery(CurrentUserQueryOptions.currentUser())
 
+  const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
+
+  const logoutMutation = useMutation({
+    mutationFn: () => Account.logout(),
+    onSuccess: () => {
+      window.location.reload()
+    },
+    onError: (error) => {
+      console.error(error)
+      notifications.show({
+        title: 'Error',
+        message: 'No se pudo cerrar sesión. Intente mas tarde.',
+        color: 'red',
+      })
+    },
+  })
+
   return (
     <>
       {currentUser ? (
         <AppShell.Section>
-          <NavbarItem
-            text={currentUser.user}
-            textSecondLine={currentUser.email}
-            link="/account/profile"
-            icon={<IconUserCircle size={iconSize} />}
-          />
+          <Menu
+            loop={false}
+            withinPortal={false}
+            trapFocus={false}
+            menuItemTabIndex={0}
+            shadow="md"
+            position={isMobile ? 'bottom' : 'right'}
+            width={isMobile ? '90%' : undefined}
+            withArrow>
+            <Menu.Target>
+              <UserBanner
+                profileIcon={<IconUserCircle size={iconSize} />}
+                name={currentUser.user}
+                email={currentUser.email}
+              />
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item
+                component={Link}
+                href="/account/profile"
+                leftSection={<IconEdit style={{ width: rem(14), height: rem(14) }} />}>
+                Editar Perfil
+              </Menu.Item>
+              <Menu.Item
+                onClick={() => {
+                  logoutMutation.mutate()
+                }}
+                leftSection={<IconDoorExit style={{ width: rem(14), height: rem(14) }} />}>
+                Cerrar Sesión
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </AppShell.Section>
       ) : (
         <AppShell.Section>

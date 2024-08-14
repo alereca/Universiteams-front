@@ -31,6 +31,10 @@ export const Account = {
     const url = `${prefix}/${type}`
     await axios.post<CurrentUserInfo>(url, values)
   },
+  logout: async () => {
+    const url = `${prefix}/logout`
+    await axios.post(url)
+  },
   saveProfile: async (values: ProfileInputDto) => {
     const url = `${prefix}/profile`
     await axios.put(url, values)

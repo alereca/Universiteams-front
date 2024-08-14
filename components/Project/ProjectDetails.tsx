@@ -298,26 +298,29 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
             </ActionIcon>
             <Text size="sm">{project.favoriteCount}</Text>
           </Group>
-          {!project.requestEnrollmentCount /* Is Admin */ && (
-            <>
-              <ActionIcon
-                variant="transparent"
-                aria-label="Editar"
-                onClick={handleEditClick}
-                size="lg"
-                color={'orange.6'}>
-                <IconEdit />
-              </ActionIcon>
-              <ActionIcon
-                variant="transparent"
-                aria-label="Eliminar"
-                onClick={handleDeleteClick}
-                size="lg"
-                color={'red.6'}>
-                <IconTrash />
-              </ActionIcon>
-            </>
-          )}
+
+          {/* Admin */}
+          {project?.requestEnrollmentCount !== undefined &&
+            project?.requestEnrollmentCount !== null && (
+              <>
+                <ActionIcon
+                  variant="transparent"
+                  aria-label="Editar"
+                  onClick={handleEditClick}
+                  size="lg"
+                  color={'orange.6'}>
+                  <IconEdit />
+                </ActionIcon>
+                <ActionIcon
+                  variant="transparent"
+                  aria-label="Eliminar"
+                  onClick={handleDeleteClick}
+                  size="lg"
+                  color={'red.6'}>
+                  <IconTrash />
+                </ActionIcon>
+              </>
+            )}
         </Flex>
 
         <Tabs

@@ -105,7 +105,10 @@ const ProjectCreateUpdate = (props?: ProjectCreateUpdateProps) => {
 
       // If id exists, update the project
       if (props?.id) {
-        if (!currentProject?.requestEnrollmentCount) {
+        if (
+          currentProject?.requestEnrollmentCount === undefined ||
+          currentProject?.requestEnrollmentCount === null
+        ) {
           notifications.show({
             title: 'Debes tener el rol de líder de proyecto para modificar este proyecto',
             color: 'red',

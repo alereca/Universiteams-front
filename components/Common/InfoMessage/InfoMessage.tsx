@@ -25,9 +25,9 @@ const Message = (props: MessageProps) => {
   const icon = setIcon()
 
   return (
-    <Flex m={20} p={20} bg="var(--mantine-color-gray-light)" align={'center'}>
+    <Flex m={'1.5rem'} p={'1.5rem'} bg="var(--mantine-color-gray-light)" align={'center'}>
       {icon}{' '}
-      <Text ml={10} size="1.2rem">
+      <Text ml={'0.75rem'} size={'1.2rem'}>
         {props.text}
       </Text>
     </Flex>

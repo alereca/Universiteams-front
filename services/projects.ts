@@ -8,6 +8,7 @@ import { EnrollmentRequestInput } from '../entities/Enrollment/EnrollmentRequest
 import { EnrollmentRequestsShow } from '@/entities/Enrollment/EnrollmentRequestsShow'
 import { Order } from '@/entities/HelpTypes/Order'
 import Project from '@/entities/Project/Project'
+import { ProjectNewRequest, ProjectNewResponse } from '@/entities/Project/ProjectNew'
 import ProjectsResult from '@/entities/Project/ProjectsResult'
 import { ProjectSortAttribute, RequestState } from '@/entities/Project/ProjectInList'
 
@@ -66,9 +67,26 @@ export const Projects = {
     return result.data
   },
 
-  async getProject(id: number): Promise<Project | undefined> {
+  async getProject(id: number | undefined): Promise<Project | undefined> {
+    if (!id) return
+
     const result = await axios.get<Project>(`${prefix}/${id}`)
     return result.data
+  },
+
+  async newProject(project: ProjectNewRequest): Promise<ProjectNewResponse> {
+    const result = await axios.post<ProjectNewResponse>(prefix, project)
+    return result.data
+  },
+
+  async updateProject(projectId: number, project: ProjectNewRequest): Promise<ProjectNewResponse> {
+    const result = await axios.put<ProjectNewResponse>(`${prefix}/${projectId}`, project)
+    return result.data
+  },
+
+  async deleteProject(projectId: number) {
+    await axios.delete(`${prefix}/${projectId}`)
+    return
   },
 
   async favorite(id: number): Promise<void> {

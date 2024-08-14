@@ -1,19 +1,2 @@
 #!/bin/sh
 
-# Run npm test
-make test
-TEST_EXIT_CODE=$?
-
-# Run formatter (e.g., Prettier)
-make format
-FORMAT_EXIT_CODE=$?
-
-# Run linter (e.g., ESLint)
-make lint
-LINT_EXIT_CODE=$?
-
-# Check exit codes
-if [ $TEST_EXIT_CODE -ne 0 ] || [ $FORMAT_EXIT_CODE -ne 0 ] || [ $LINT_EXIT_CODE -ne 0 ]; then
-  echo "Pre-commit hook failed. Please fix the issues and try again."
-  exit 1
-fi

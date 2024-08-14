@@ -6,7 +6,7 @@ import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query'
 import { Center, Pagination } from '@mantine/core'
 
 import { CurrentUserQueryOptions } from '@/services/currentUser'
-import { DepartmentQueryKey, ResearchDepartments } from '@/services/departments'
+import { DepartmentsQueryKey, ResearchDepartments } from '@/services/departments'
 import { Facilities, FacilitiesQueryKey } from '@/services/facilities'
 import { Institutions } from '@/services/institutions'
 import { Interests } from '@/services/interests'
@@ -49,7 +49,7 @@ const UsersPage: NextPage = () => {
   })
 
   const departmentsQuery = useQuery({
-    queryKey: [DepartmentQueryKey, searchQuery.get('facility')],
+    queryKey: [DepartmentsQueryKey, searchQuery.get('facility')],
     queryFn: () =>
       ResearchDepartments.getResearchDepartments({
         facilityId: parseInt(searchQuery.get('facility')!),

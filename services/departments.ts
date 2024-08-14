@@ -45,4 +45,4 @@ export const ResearchDepartments = {
   },
 }
 
-export const DepartmentQueryKey = 'departments'
+export const DepartmentsQueryKey = 'departments'

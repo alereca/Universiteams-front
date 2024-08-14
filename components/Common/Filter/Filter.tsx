@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { ActionIcon, Drawer, Flex, Group, Text } from '@mantine/core'
+import { useRouter } from 'next/navigation'
+import { ActionIcon, Button, Drawer, Flex, Group, Text } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { IconFilter, IconXboxX } from '@tabler/icons-react'
 import Theme from 'src/app/theme'
 
 interface FilterProps {
   counter: number
+  newButtonDirection?: string
   children: React.ReactNode
   content: React.ReactNode
 }
@@ -13,6 +15,8 @@ interface FilterProps {
 const Filter = (props: FilterProps) => {
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
   const [opened, setOpened] = useState(false)
+
+  const router = useRouter()
 
   useEffect(() => {
     if (isMobile === true) {
@@ -26,11 +30,32 @@ const Filter = (props: FilterProps) => {
     setOpened((prevOpened) => !prevOpened)
   }
 
-  const resultsCounter = <Text>{props.counter} Resultados</Text>
+  const handleNewProject = () => {
+    if (!props.newButtonDirection) return
+    router.push(props.newButtonDirection)
+  }
+
+  const resultsCounter =
+    props.counter && props.counter > 0 ? (
+      <Text>
+        {props.counter} {props.counter != 1 ? 'Resultados' : 'Resultado'}
+      </Text>
+    ) : (
+      <Text>Sin resultados</Text>
+    )
+
   return (
     <>
+      {props.newButtonDirection && (
+        <Group
+          justify={isMobile ? 'flex-end' : 'flex-start'}
+          mt={'1rem'}
+          mx={isMobile ? '1rem' : '1.4rem'}>
+          <Button onClick={() => handleNewProject()}>Nuevo proyecto</Button>
+        </Group>
+      )}
       <Group justify={isMobile ? 'flex-end' : 'flex-start'} gap="xs">
-        {isMobile && resultsCounter}
+        <Group my={'1rem'}>{isMobile && resultsCounter}</Group>
         <ActionIcon
           variant="transparent"
           aria-label="Filter"
@@ -39,10 +64,10 @@ const Filter = (props: FilterProps) => {
           ml={!isMobile ? 'xs' : 0}>
           <IconFilter style={{ width: '70%', height: '70%' }} />
         </ActionIcon>
-        {!isMobile && resultsCounter}
+        <Group my={'1rem'}>{!isMobile && resultsCounter}</Group>
       </Group>
 
-      {isMobile && (
+      {isMobile ? (
         <>
           <Drawer
             opened={opened}
@@ -57,9 +82,7 @@ const Filter = (props: FilterProps) => {
           </Drawer>
           {props.children}
         </>
-      )}
-
-      {!isMobile && (
+      ) : (
         <Flex direction="row-reverse">
           <div
             style={{

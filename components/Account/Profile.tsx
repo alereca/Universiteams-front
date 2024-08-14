@@ -14,7 +14,7 @@ import {
   ProfileInputDto as UserRegisterDto,
 } from '@/services/account'
 import {
-  DepartmentQueryKey,
+  DepartmentsQueryKey,
   ResearchDepartmentRelations,
   ResearchDepartments,
 } from '@/services/departments'
@@ -73,7 +73,7 @@ const Profile = () => {
   }, [userProfile?.userAffiliations])
 
   const departmentsQuery = useQuery({
-    queryKey: [DepartmentQueryKey],
+    queryKey: [DepartmentsQueryKey],
     queryFn: () =>
       ResearchDepartments.getResearchDepartments({
         relations: [ResearchDepartmentRelations.facility, ResearchDepartmentRelations.institution],

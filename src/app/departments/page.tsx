@@ -17,7 +17,7 @@ import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import SkeletonFull from '../../../components/Common/Loader/SkeletonFull'
 import {
-  DepartmentQueryKey,
+  DepartmentsQueryKey,
   ResearchDepartmentRelations,
   ResearchDepartments,
 } from '../../../services/departments'
@@ -71,7 +71,7 @@ const DepartmentsAdminPage: NextPage = () => {
   const deleteMutation = useMutation({
     mutationFn: (id: number) => ResearchDepartments.deleteDepartment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [DepartmentQueryKey] })
+      queryClient.invalidateQueries({ queryKey: [DepartmentsQueryKey] })
       notifications.show({
         title: 'Departmento eliminado',
         message: 'La departmento se ha eliminado exitosamente',
@@ -99,7 +99,7 @@ const DepartmentsAdminPage: NextPage = () => {
     })
 
   const departmentsQuery = useQuery({
-    queryKey: [DepartmentQueryKey],
+    queryKey: [DepartmentsQueryKey],
     queryFn: () =>
       ResearchDepartments.getResearchDepartments({
         relations: [ResearchDepartmentRelations.institution, ResearchDepartmentRelations.facility],

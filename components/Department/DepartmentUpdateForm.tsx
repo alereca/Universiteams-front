@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { modals } from '@mantine/modals'
 import { MRT_TableInstance } from 'mantine-react-table'
 import Validation from '../../utils/string/Validation'
-import { DepartmentQueryKey, ResearchDepartments } from '../../services/departments'
+import { DepartmentsQueryKey, ResearchDepartments } from '../../services/departments'
 import { DepartmentUpdateDto } from '../../entities/Department/DepartmentUpdateDto'
 import ResearchDepartment from '../../entities/ResearchDepartment'
 
@@ -25,7 +25,7 @@ const DepartmentUpdateForm: React.FC<DepartmentUpdateFormProps> = ({
     mutationFn: (updatedDepartment: DepartmentUpdateDto) =>
       ResearchDepartments.updateDepartment(updatedDepartment),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [DepartmentQueryKey] })
+      queryClient.invalidateQueries({ queryKey: [DepartmentsQueryKey] })
       notifications.show({
         title: 'Departamento actualizada',
         message: 'La repartamento se ha actualizado exitosamente',

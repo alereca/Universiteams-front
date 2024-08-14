@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { MRT_TableInstance } from 'mantine-react-table'
 import SelectItem from '../../entities/HelpTypes/SelectItem'
 import Validation from '../../utils/string/Validation'
-import { DepartmentQueryKey, ResearchDepartments } from '../../services/departments'
+import { DepartmentsQueryKey, ResearchDepartments } from '../../services/departments'
 import { DepartmentCreateDto } from '../../entities/Department/DepartmentCreateDto'
 import ResearchDepartment from '../../entities/ResearchDepartment'
 import { Facilities, FacilitiesQueryKey, FacilityRelations } from '../../services/facilities'
@@ -24,7 +24,7 @@ const DepartmentCreateForm: React.FC<DepartmentCreateFormProps> = ({
     mutationFn: (newDepartment: DepartmentCreateDto) =>
       ResearchDepartments.createDepartment(newDepartment),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [DepartmentQueryKey] })
+      queryClient.invalidateQueries({ queryKey: [DepartmentsQueryKey] })
       notifications.show({
         title: 'Departamento creado',
         message: 'El departamento se ha creado exitosamente',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppShell, Divider, Menu, rem, ScrollArea } from '@mantine/core'
+import { AppShell, Divider, rem, ScrollArea } from '@mantine/core'
 import NavbarItem from './NavbarItem'
 import {
   IconAlertCircle,
@@ -18,12 +18,10 @@ import {
 } from '@tabler/icons-react'
 import { CurrentUserQueryOptions } from '../../../services/currentUser'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useMediaQuery } from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
-import { Link } from 'tabler-icons-react'
 import { RequestState, ProjectSortAttribute } from '../../../entities/Project/ProjectInList'
 import { Account } from '../../../services/account'
-import Theme from '../../../src/app/theme'
 import UserBanner from './UserBanner'
 
 const mockAppVersion = 'v1.0.0'
@@ -34,7 +32,7 @@ const iconSize = 40
 const Navbar = () => {
   const { data: currentUser } = useQuery(CurrentUserQueryOptions.currentUser())
 
-  const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
+  const [userMenuOpened, userMenuHandlers] = useDisclosure(false)
 
   const logoutMutation = useMutation({
     mutationFn: () => Account.logout(),
@@ -55,38 +53,31 @@ const Navbar = () => {
     <>
       {currentUser ? (
         <AppShell.Section>
-          <Menu
-            loop={false}
-            withinPortal={false}
-            trapFocus={false}
-            menuItemTabIndex={0}
-            shadow="md"
-            position={isMobile ? 'bottom' : 'right'}
-            width={isMobile ? '90%' : undefined}
-            withArrow>
-            <Menu.Target>
-              <UserBanner
-                profileIcon={<IconUserCircle size={iconSize} />}
-                name={currentUser.user}
-                email={currentUser.email}
+          <UserBanner
+            profileIcon={<IconUserCircle size={iconSize} />}
+            name={currentUser.user}
+            email={currentUser.email}
+            onClick={userMenuHandlers.toggle}
+          />
+          {userMenuOpened && (
+            <>
+              <NavbarItem
+                text="Editar Perfil"
+                link="/account/profile"
+                icon={<IconEdit style={{ width: rem(14), height: rem(14) }} />}
+                small
+                background="var(--mantine-color-gray-lightest)"
               />
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Item
-                component={Link}
-                href="/account/profile"
-                leftSection={<IconEdit style={{ width: rem(14), height: rem(14) }} />}>
-                Editar Perfil
-              </Menu.Item>
-              <Menu.Item
-                onClick={() => {
-                  logoutMutation.mutate()
-                }}
-                leftSection={<IconDoorExit style={{ width: rem(14), height: rem(14) }} />}>
-                Cerrar Sesión
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
+              <NavbarItem
+                text="Cerrar Sesión"
+                icon={<IconDoorExit style={{ width: rem(14), height: rem(14) }} />}
+                small
+                background="var(--mantine-color-gray-lightest)"
+                onClick={logoutMutation.mutate}
+                link="#"
+              />
+            </>
+          )}
         </AppShell.Section>
       ) : (
         <AppShell.Section>

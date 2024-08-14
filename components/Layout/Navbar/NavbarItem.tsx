@@ -6,21 +6,34 @@ import CustomLink from '@/components/Common/CustomLink/CustomLink'
 import Theme from 'src/app/theme'
 import useSidebarStore from '../useSidebarStore'
 
-interface INavbarItem {
+interface NavbarItemProps {
   text: string
   textSecondLine?: string
   link?: string
   icon?: JSX.Element
   small?: boolean
+  background?: string
+  onClick?: () => void
 }
 
-const NavbarItem = ({ text, textSecondLine, link, icon, small = false }: INavbarItem) => {
+const NavbarItem = ({
+  text,
+  textSecondLine,
+  link,
+  icon,
+  small = false,
+  background = 'var(--mantine-color-gray-light)',
+  onClick,
+}: NavbarItemProps) => {
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
   const toggle = useSidebarStore((state) => state.toggle)
 
   const handleClick = () => {
     if (isMobile) {
       toggle()
+    }
+    if (onClick) {
+      onClick()
     }
   }
 
@@ -35,7 +48,7 @@ const NavbarItem = ({ text, textSecondLine, link, icon, small = false }: INavbar
     () => (
       <Flex
         h={small ? 45 : 60}
-        bg="var(--mantine-color-gray-light)"
+        bg={background}
         pl={20}
         onClick={handleClick}
         align="center"

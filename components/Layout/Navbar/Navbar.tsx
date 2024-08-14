@@ -23,6 +23,7 @@ import { notifications } from '@mantine/notifications'
 import { RequestState, ProjectSortAttribute } from '../../../entities/Project/ProjectInList'
 import { Account } from '../../../services/account'
 import UserBanner from './UserBanner'
+import { useRouter } from 'next/navigation'
 
 const mockAppVersion = 'v1.0.0'
 
@@ -34,10 +35,12 @@ const Navbar = () => {
 
   const [userMenuOpened, userMenuHandlers] = useDisclosure(false)
 
+  const router = useRouter()
+
   const logoutMutation = useMutation({
     mutationFn: () => Account.logout(),
     onSuccess: () => {
-      window.location.reload()
+      router.push('/')
     },
     onError: (error) => {
       console.error(error)

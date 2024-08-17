@@ -61,6 +61,7 @@ const Navbar = () => {
             name={currentUser.user}
             email={currentUser.email}
             onClick={userMenuHandlers.toggle}
+            isMenuOpen={userMenuOpened}
           />
           {userMenuOpened && (
             <>

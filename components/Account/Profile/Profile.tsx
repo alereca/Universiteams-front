@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { AxiosError } from 'axios'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Alert, Button, Center, Container, Loader, Paper, Stack, Text } from '@mantine/core'
+import { Alert, Button, Center, Loader, Stack, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 
@@ -19,10 +19,11 @@ import {
   ResearchDepartments,
 } from '@/services/departments'
 
-import DepartmentMultiSelect from '../Department/DepartmentMultiSelect'
-import MultiSelectCreatable from '../Common/Form/MultiSelectCreatable'
 import SelectItem from '@/entities/HelpTypes/SelectItem'
 import { UserAffiliationType } from '@/entities/User/UserAffiliation'
+import MultiSelectCreatable from '../../Common/Form/MultiSelectCreatable'
+import DepartmentMultiSelect from '../../Department/DepartmentMultiSelect'
+import ProfileContainer from './ProfileContainer'
 
 type ProfileForm = {
   interests: SelectItem[]
@@ -152,100 +153,86 @@ const Profile = () => {
 
   if (isLoadingUserProfile) {
     return (
-      <Container size="xs" my={40}>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Center>
-            <Loader variant="dots" />
-          </Center>
-        </Paper>
-      </Container>
+      <ProfileContainer>
+        <Center>
+          <Loader variant="dots" />
+        </Center>
+      </ProfileContainer>
     )
   }
 
   if (userProfileErr !== null && (userProfileErr as AxiosError).response?.status === 401) {
     return (
-      <Container size="xs" my={40}>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Center>
-            <Alert
-              variant="light"
-              color="red"
-              title="No autorizado"
-              icon={<IconExclamationCircle />}>
-              Debes estar autenticado para completar tu perfil
-            </Alert>
-          </Center>
-        </Paper>
-      </Container>
+      <ProfileContainer>
+        <Center>
+          <Alert variant="light" color="red" title="No autorizado" icon={<IconExclamationCircle />}>
+            Debes estar autenticado para completar tu perfil
+          </Alert>
+        </Center>
+      </ProfileContainer>
     )
   }
 
   if (userProfileErr !== null) {
     return (
-      <Container size="xs" my={40}>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Center>
-            <Alert variant="light" color="red" title="Error" icon={<IconExclamationCircle />}>
-              No se pudo cargar tu perfil
-            </Alert>
-          </Center>
-        </Paper>
-      </Container>
+      <ProfileContainer>
+        <Center>
+          <Alert variant="light" color="red" title="Error" icon={<IconExclamationCircle />}>
+            No se pudo cargar tu perfil
+          </Alert>
+        </Center>
+      </ProfileContainer>
     )
   }
 
   if (departmentsQuery.isLoading || interestsQuery.isLoading) {
     return (
-      <Container size="xs" my={40}>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Center>
-            <Loader variant="dots" />
-          </Center>
-        </Paper>
-      </Container>
+      <ProfileContainer>
+        <Center>
+          <Loader variant="dots" />
+        </Center>
+      </ProfileContainer>
     )
   }
 
   return (
-    <Container size="xs" my={40}>
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-          <Text size="lg" w={500} mb="lg">
-            Edita tu perfil
-          </Text>
+    <ProfileContainer>
+      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+        <Text size="lg" mb="lg">
+          Edita tu perfil
+        </Text>
 
-          <Stack gap="lg">
-            <div>
-              <Text size="sm" mb="sm">
-                Intereses
-              </Text>
-              <MultiSelectCreatable
-                possibleValues={interests}
-                placeholder="Ej. Domotica"
-                value={form.values.interests}
-                onChange={(value) => form.setFieldValue('interests', value)}
-              />{' '}
-            </div>
+        <Stack gap="lg">
+          <div>
+            <Text size="sm" mb="sm">
+              Intereses
+            </Text>
+            <MultiSelectCreatable
+              possibleValues={interests}
+              placeholder="Ej. Domotica"
+              value={form.values.interests}
+              onChange={(value) => form.setFieldValue('interests', value)}
+            />{' '}
+          </div>
 
-            <div>
-              <Text size="sm" mb="sm">
-                Departamentos
-              </Text>
+          <div>
+            <Text size="sm" mb="sm">
+              Departamentos
+            </Text>
 
-              <DepartmentMultiSelect
-                userAffiliations={userProfile?.userAffiliations}
-                possibleDepartments={departmentsQuery.data}
-                onChange={handleDepartmentsChange}
-              />
-            </div>
-          </Stack>
+            <DepartmentMultiSelect
+              userAffiliations={userProfile?.userAffiliations}
+              possibleDepartments={departmentsQuery.data}
+              onChange={handleDepartmentsChange}
+            />
+          </div>
+        </Stack>
 
-          <Button mt="lg" fullWidth type="submit">
-            Guardar
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+        <Button mt="lg" fullWidth type="submit">
+          Guardar
+        </Button>
+      </form>
+    </ProfileContainer>
   )
 }
 

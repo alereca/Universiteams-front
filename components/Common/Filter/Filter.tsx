@@ -4,6 +4,8 @@ import { ActionIcon, Button, Drawer, Flex, Group, Text } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { IconFilter, IconXboxX } from '@tabler/icons-react'
 import Theme from 'src/app/theme'
+import { CurrentUserQueryOptions } from '../../../services/currentUser'
+import { useQuery } from '@tanstack/react-query'
 
 interface FilterProps {
   counter: number
@@ -15,6 +17,8 @@ interface FilterProps {
 const Filter = (props: FilterProps) => {
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
   const [opened, setOpened] = useState(false)
+
+  const currentUserQuery = useQuery(CurrentUserQueryOptions.currentUser())
 
   const router = useRouter()
 
@@ -46,14 +50,16 @@ const Filter = (props: FilterProps) => {
 
   return (
     <>
-      {props.newButtonDirection && (
-        <Group
-          justify={isMobile ? 'flex-end' : 'flex-start'}
-          mt={'1rem'}
-          mx={isMobile ? '1rem' : '1.4rem'}>
-          <Button onClick={() => handleNewProject()}>Nuevo proyecto</Button>
-        </Group>
-      )}
+      {props.newButtonDirection &&
+        !currentUserQuery.isError &&
+        currentUserQuery.data?.isEmailVerified && (
+          <Group
+            justify={isMobile ? 'flex-end' : 'flex-start'}
+            mt={'1rem'}
+            mx={isMobile ? '1rem' : '1.4rem'}>
+            <Button onClick={() => handleNewProject()}>Nuevo proyecto</Button>
+          </Group>
+        )}
       <Group justify={isMobile ? 'flex-end' : 'flex-start'} gap="xs">
         <Group my={'1rem'}>{isMobile && resultsCounter}</Group>
         <ActionIcon

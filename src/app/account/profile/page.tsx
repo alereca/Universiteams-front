@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Profile from '../../../../components/Account/Profile'
+import Profile from '../../../../components/Account/Profile/Profile'
 
 const ProfilePage = () => {
   return <Profile />

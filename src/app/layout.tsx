@@ -16,6 +16,7 @@ import { Notifications } from '@mantine/notifications'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ModalsProvider } from '@mantine/modals'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 const queryClient = new QueryClient()
 
@@ -44,6 +45,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
                 {children}
                 <Notifications />
                 <SpeedInsights />
+                <Analytics />
               </Layout>
             </ModalsProvider>
           </MantineProvider>

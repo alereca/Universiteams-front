@@ -9,11 +9,15 @@ help: Makefile
 # .PHONY: A phony target is one that is not really the name of a file; 
 # rather it is just a name for a recipe to be executed when you make an explicit request.
 
-## dev:	Bootstrap dev environment
+## dev:		Run a server on development mode
 dev:
 	npm run dev
 
-## build:	Build the project
+## prod:	Run a server on production mode
+prod:
+	npm run start
+
+## build:	Build the project for production
 build:
 	npm run build
 

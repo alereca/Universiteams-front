@@ -3,18 +3,27 @@ Pro Scientific Dissemination &amp; Volunteering
 
 ## Getting started
 
+### Nodejs
+
 Clone this repository, then open it with a code editor and execute the command `npm install`.
 
 > If the dependencies are not installed with the above command, you must install [Node.js](https://nodejs.org/es/) on your machine.
+
+### Make
+
+Only in case you happen to use Windows install [Chocolatey package manager](https://chocolatey.org/install)
+Then install Make with the following command:
+
+```bash
+$ choco install make
+```
 
 ## Run a server
 
 To run a server on _development mode_ you need to execute:
 
 ```bash
-npm run dev
-# or
-yarn dev
+make dev
 ```
 
 To be able to visualize the dev server running, you must open [http://localhost:3000](http://localhost:3000/).
@@ -24,26 +33,20 @@ To be able to visualize the dev server running, you must open [http://localhost:
 To build the system for production you must execute:
 
 ```bash
-npm run build
-# or
-yarn build
+make build
 ```
 
 To run a server on _production mode_ you need to execute:
 
 ```bash
-npm start
-# or
-yarn start
+make prod
 ```
 
 ## Repository edit
 
-The repository's root path is `pages/index.tsx`. All folder structures and page files within are automatically routed and converted to equivalently named _endpoints_. When changes are made to a file, the open server is automatically updated when the changes are saved.
+The repository's root path is `src/app/layout.tsx`.
 
 Each new component must be created inside the `components` folder. These are server-side rendered when they are called on any of the pages. Suppose we have a component called "Dropdown", it will be rendered on a page that contains the `<Dropdown />` tag.
-
-The `pages/api` subfolder is mapped to the path `/api/*`. The files in this folder are taken by Next as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages. To access any route API, the respective endpoint must be placed. Example, for the file `pages/api/test.ts`, the path [http://localhost:3000/api/test](http://localhost:3000/api/test) corresponds to it.
 
 ## Documentation about Next.js
 
@@ -63,7 +66,7 @@ Important and interesting documentation of Next.js can be consulted at:
 |Tool|
 |:-|
 |:ballot_box_with_check: Node.JS|
-|:ballot_box_with_check: Express|
+|:ballot_box_with_check: Nestjs|
 |:ballot_box_with_check: TypeORM|
 |:ballot_box_with_check: PostgreSQL|
 

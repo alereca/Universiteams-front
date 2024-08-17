@@ -72,11 +72,7 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
     CurrentUserQueryOptions.currentUser()
   )
 
-  const {
-    data: enrollmentRequests,
-    error: errorEnrollmentRequests,
-    isLoading: isLoadingEnrollmentRequests,
-  } = useQuery({
+  const enrollmentRequestsQuery = useQuery({
     queryKey: [EnrollmentRequestsQueryKey, props.id],
     queryFn: () => Projects.getEnrollmentRequests(props.id),
     enabled:
@@ -370,15 +366,15 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
             />
           </Tabs.Panel>
 
-          {!errorEnrollmentRequests && enrollmentRequests && (
+          {!enrollmentRequestsQuery.isError && enrollmentRequestsQuery.data && (
             <Tabs.Panel value={ProjectDetailsTabs.Requests}>
-              {isLoadingEnrollmentRequests && (
+              {enrollmentRequestsQuery.isLoading && (
                 <Tabs.Tab value={ProjectDetailsTabs.Requests}>
                   <Loader type="dots" />
                 </Tabs.Tab>
               )}
-              {!isLoadingEnrollmentRequests &&
-                enrollmentRequests.enrollmentRequests.map((request) => (
+              {!enrollmentRequestsQuery.isLoading &&
+                enrollmentRequestsQuery.data.enrollmentRequests.map((request) => (
                   <Card key={request.id} p="md" mt="md" withBorder>
                     <Text size="lg" w={500}>
                       {request.user.firstName} {request.user.lastName}

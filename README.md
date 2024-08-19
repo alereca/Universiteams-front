@@ -59,20 +59,21 @@ Important and interesting documentation of Next.js can be consulted at:
 
 ### Frontend
 
-| Name                            | How it contributes to the project              |
-| :------------------------------ | :--------------------------------------------- |
-| :necktie: TypeScript            | Programming language that builds on JavaScript |
-| :rocket: Next.js                | Fullstack framework for React.js               |
-| :basket: Mantine                | Really cool component library                  |
-| :bone: HTML5 & CSS3             | The basics for the web!                        |
-| :art: Sass CSS                  | Simple stylization                             |
-| :framed_picture: Tabler Icons   | Icons Mantine-compatible                       |
-| :paintbrush: Prettier           | Nice code formatter                            |
-| :triangular_ruler: ESLint       | Complete linter with strict rules              |
-| :guide_dog: Husky               | Git hooks to assure quality commits            |
-| :test_tube: Jest                | Easy unit testing                              |
-| :package: TurboPack             | JavaScript very fast bundler                   |
-| :page_with_curl: GitHub Actions | CI/CD automation                               |
+| Name                              | How it contributes to the project              |
+| :-------------------------------- | :--------------------------------------------- |
+| :necktie: TypeScript              | Programming language that builds on JavaScript |
+| :rocket: Next.js                  | Fullstack framework for React.js               |
+| :basket: Mantine                  | Really cool component library                  |
+| :bone: HTML5 & CSS3               | The basics for the web!                        |
+| :art: Sass CSS                    | Simple stylization                             |
+| :framed_picture: Tabler Icons     | Icons Mantine-compatible                       |
+| :paintbrush: Prettier             | Nice code formatter                            |
+| :triangular_ruler: ESLint         | Complete linter with strict rules              |
+| :guide_dog: Husky                 | Git hooks to assure quality commits            |
+| :test_tube: Jest                  | Easy unit testing                              |
+| :package: TurboPack               | JavaScript very fast bundler                   |
+| :page_with_curl: GitHub Actions   | CI/CD automation                               |
+| :arrow_up_small: Deploy in Vercel | Deployment is very important!                  |           
 
 ### Backend
 
@@ -92,11 +93,13 @@ Important and interesting documentation of Next.js can be consulted at:
 | :gear: Traefik                     | HTTP reverse proxy and load balancer                          |
 | :whale: Docker                     | Separates the app from the infrastructure with containers     |
 | :cloud: Terraform                  | Infrastructure as code tool to manage the infra in any cloud  |
+| :airplane: New Relic               | Monitor and analyze deployments                               |
+| :droplet: DigitalOcean Droplet     | Deploy in scalable cloud virtual machines                     |
 
 ## Authors
 
 | Name                         | GitHub Account                          |
 | :--------------------------- | :-------------------------------------- |
-| :octocat: Recalde, Alejandro | :link: https://github.com/alereca       |
+| :octocat: Alejandro Recalde  | :link: https://github.com/alereca       |
 | :octocat: Nicolás Antonelli  | :link: https://github.com/NicoAntonelli |
-| :octocat: Acciarri, Joshua   | :link: https://github.com/JAcciarri     |
+| :octocat: Joshua Acciarri    | :link: https://github.com/JAcciarri     |

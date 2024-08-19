@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { AppShell, useComputedColorScheme, useMantineColorScheme } from '@mantine/core'
 import { useHotkeys } from '@mantine/hooks'
 
 import Constants from 'utils/string/Constants'
 import Header from './Header/Header'
+import SpriteLogo from '../Common/Loader/SpriteLogo'
 import Navbar from './Navbar/Navbar'
 import useSidebarStore from './useSidebarStore'
 
@@ -15,6 +16,7 @@ interface Layout {
 const Layout = (props: Layout) => {
   const opened = useSidebarStore((state) => state.opened)
   const pathName = usePathname()
+  const [unloaded, setUnloaded] = useState(true)
 
   // Change between theme preferences
   const { setColorScheme } = useMantineColorScheme()
@@ -24,32 +26,43 @@ const Layout = (props: Layout) => {
   // Hotkeys
   useHotkeys([['mod+J', () => toggleColorScheme()]])
 
-  // Validate pathname - Layout without navigation
-  if (Constants.noNavbarRoutes.includes(pathName)) {
+  useEffect(() => {
+    setUnloaded(false)
+  }, [])
+
+  const layoutSet = () => {
+    // Unloaded page
+    if (unloaded) return <SpriteLogo />
+
+    // Validate pathname - Layout without navigation
+    if (Constants.noNavbarRoutes.includes(pathName)) {
+      return (
+        <AppShell header={{ height: 60 }}>
+          <AppShell.Header>
+            <Header toggleColorScheme={toggleColorScheme} showNavAndSearch={false} />
+          </AppShell.Header>
+          <AppShell.Main>{props.children}</AppShell.Main>
+        </AppShell>
+      )
+    }
+
+    // Layout with navigation
     return (
-      <AppShell header={{ height: 60 }}>
+      <AppShell
+        header={{ height: 60 }}
+        navbar={{ width: { base: 270 }, breakpoint: 'sm', collapsed: { mobile: !opened } }}>
         <AppShell.Header>
-          <Header toggleColorScheme={toggleColorScheme} showNavAndSearch={false} />
+          <Header toggleColorScheme={toggleColorScheme} showNavAndSearch={true} />
         </AppShell.Header>
+        <AppShell.Navbar>
+          <Navbar />
+        </AppShell.Navbar>
         <AppShell.Main>{props.children}</AppShell.Main>
       </AppShell>
     )
   }
 
-  // Layout with navigation
-  return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{ width: { base: 270 }, breakpoint: 'sm', collapsed: { mobile: !opened } }}>
-      <AppShell.Header>
-        <Header toggleColorScheme={toggleColorScheme} showNavAndSearch={true} />
-      </AppShell.Header>
-      <AppShell.Navbar>
-        <Navbar />
-      </AppShell.Navbar>
-      <AppShell.Main>{props.children}</AppShell.Main>
-    </AppShell>
-  )
+  return layoutSet()
 }
 
 export default Layout

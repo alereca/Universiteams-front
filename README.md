@@ -55,31 +55,48 @@ Important and interesting documentation of Next.js can be consulted at:
 -   [Nextjs.org/docs](https://nextjs.org/docs) - Features and functionalities of Next.js
 -   [Nextjs.org/learn](https://nextjs.org/learn) - Interactive tutorial about Next.js
 
-## Tech stack
-### Common
-|Tool|
-|:-|
-|:ballot_box_with_check: TypeScript / JavaScript |
-|:ballot_box_with_check: JWT|
-
-### Backend
-|Tool|
-|:-|
-|:ballot_box_with_check: Node.JS|
-|:ballot_box_with_check: Nestjs|
-|:ballot_box_with_check: TypeORM|
-|:ballot_box_with_check: PostgreSQL|
+## Technologies used
 
 ### Frontend
-|Tool|
-|:-|
-|:ballot_box_with_check: React|
-|:ballot_box_with_check: Next.JS|
-|:ballot_box_with_check: HTML5 / CSS3 / SASS|
+
+| Name                            | How it contributes to the project              |
+| :------------------------------ | :--------------------------------------------- |
+| :necktie: TypeScript            | Programming language that builds on JavaScript |
+| :rocket: Next.js                | Fullstack framework for React.js               |
+| :basket: Mantine                | Really cool component library                  |
+| :bone: HTML5 & CSS3             | The basics for the web!                        |
+| :art: Sass CSS                  | Simple stylization                             |
+| :framed_picture: Tabler Icons   | Icons Mantine-compatible                       |
+| :paintbrush: Prettier           | Nice code formatter                            |
+| :triangular_ruler: ESLint       | Complete linter with strict rules              |
+| :guide_dog: Husky               | Git hooks to assure quality commits            |
+| :test_tube: Jest                | Easy unit testing                              |
+| :package: TurboPack             | JavaScript very fast bundler                   |
+| :page_with_curl: GitHub Actions | CI/CD automation                               |
+
+### Backend
+
+| Name                               | How it contributes to the project                             |
+| :--------------------------------- | :------------------------------------------------------------ |
+| :necktie: TypeScript               | Programming language that builds on JavaScript                |
+| :green_book: Node.js               | JavaScript runtime built on V8 JavaScript engine              |
+| :cat: Nest.js                      | Framework for building efficient, scalable Node.js web apps   |
+| :world_map: TypeORM                | Object-relational mapping (ORM) tool for Node.js              |
+| :card_file_box: PostgreSQL         | Open-source relational database management system (RDBMS)     |
+| :floppy_disk: JSON Web Token (JWT) | Compact and self-contained way for securely transmitting info |
+| :paintbrush: Prettier              | Nice code formatter                                           |
+| :triangular_ruler: ESLint          | Complete linter with strict rules                             |
+| :test_tube: Jest                   | Easy unit testing                                             |
+| :alembic: Supertest                | High-level HTTP abstraction for E2E integration testing       |
+| :open_book: Swagger                | Interactive, machine and human-readable API documentation     |
+| :gear: Traefik                     | HTTP reverse proxy and load balancer                          |
+| :whale: Docker                     | Separates the app from the infrastructure with containers     |
+| :cloud: Terraform                  | Infrastructure as code tool to manage the infra in any cloud  |
 
 ## Authors
-|Name|GitHub Account|
-|:-|:-|
-|Recalde, Alejandro|:octocat: https://github.com/alereca|
-|Antonelli, Nicolás|:octocat: https://github.com/NicoAntonelli|
-|Acciarri, Joshua|:octocat: https://github.com/JAcciarri|
+
+| Name                         | GitHub Account                          |
+| :--------------------------- | :-------------------------------------- |
+| :octocat: Recalde, Alejandro | :link: https://github.com/alereca       |
+| :octocat: Nicolás Antonelli  | :link: https://github.com/NicoAntonelli |
+| :octocat: Acciarri, Joshua   | :link: https://github.com/JAcciarri     |

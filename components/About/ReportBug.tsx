@@ -61,7 +61,7 @@ const AboutUniversiteams = () => {
 
       <Group justify="space-between" mt="md" mb="xs">
         <Text size="xl">Reportar bug</Text>
-        <Badge color="pink">Si encuentras uno</Badge>
+        <Badge color="pink">{Env.contactMail}</Badge>
       </Group>
 
       <form onSubmit={form.onSubmit((values: ReportInputs) => handleSubmit(values))}>

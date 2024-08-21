@@ -5,7 +5,7 @@ import { useHotkeys } from '@mantine/hooks'
 
 import Constants from 'utils/string/Constants'
 import Header from './Header/Header'
-import SpriteLogo from '../Common/Loader/SpriteLogo'
+import SplashLogo from '../Common/Loader/SplashLogo'
 import Navbar from './Navbar/Navbar'
 import useSidebarStore from './useSidebarStore'
 
@@ -32,7 +32,7 @@ const Layout = (props: Layout) => {
 
   const layoutSet = () => {
     // Unloaded page
-    if (unloaded) return <SpriteLogo />
+    if (unloaded) return <SplashLogo />
 
     // Validate pathname - Layout without navigation
     if (Constants.noNavbarRoutes.includes(pathName)) {

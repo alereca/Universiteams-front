@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SpriteLogo = () => {
+const SplashLogo = () => {
   return (
     <div
       style={{
@@ -13,6 +13,7 @@ const SpriteLogo = () => {
         background:
           'radial-gradient(circle, rgba(253,126,20,1) 0%, rgba(0,0,51,1) 75%, rgba(17,17,17,1) 95%)',
       }}>
+      {/* eslint-disable @next/next/no-img-element */}
       <img
         style={{ borderRadius: '50%' }}
         src="/android-chrome-512x512.png"
@@ -27,4 +28,4 @@ const SpriteLogo = () => {
   )
 }
 
-export default SpriteLogo
+export default SplashLogo

@@ -78,7 +78,7 @@ const DepartmentCreateForm: React.FC<DepartmentCreateFormProps> = ({
   return (
     <Stack>
       <LoadingOverlay visible={createMutation.isPending || facilitiesQuery.isLoading} />
-      <Title order={3}>Editar Departamento</Title>
+      <Title order={3}>Crear Departamento</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="xs">
           <TextInput

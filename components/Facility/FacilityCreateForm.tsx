@@ -75,7 +75,7 @@ const FacilityCreateForm: React.FC<FacilityEditFormProps> = ({ table }: Facility
   return (
     <Stack>
       <LoadingOverlay visible={createMutation.isPending || institutionsQuery.isLoading} />
-      <Title order={3}>Editar Regional</Title>
+      <Title order={3}>Crear Regional</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="xs">
           <TextInput

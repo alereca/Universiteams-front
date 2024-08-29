@@ -169,6 +169,7 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             searchable
             value={form.values.facility}
             onChange={handleFacilityChange}
+            disabled={!form.values.university}
           />
 
           <Select
@@ -184,6 +185,7 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             searchable
             value={form.values.department}
             onChange={handleDepartmentChange}
+            disabled={!form.values.facility}
           />
 
           <Select

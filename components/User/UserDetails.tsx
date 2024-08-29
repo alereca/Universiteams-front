@@ -14,6 +14,7 @@ import Interest from '@/entities/Interest'
 import Enrollment from '@/entities/Enrollment/Enrollment'
 import Dates from 'utils/string/Dates'
 import ResearchDepartment from '@/entities/ResearchDepartment'
+import { localizeProjectRole } from '../../utils/string/Localize'
 
 interface UserDetailsParams {
   id: number
@@ -178,7 +179,7 @@ const UserDetails = (props: UserDetailsParams) => {
                         )}
                     </Group>
                     <Badge variant="outline" color="blue.6" size="sm" radius="xs">
-                      {enrollment.role}
+                      {localizeProjectRole(enrollment.role)}
                     </Badge>
                   </Group>
                 </Card>

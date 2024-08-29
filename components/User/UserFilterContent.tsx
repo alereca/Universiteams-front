@@ -152,6 +152,7 @@ const UserFilterContent = (props: UserFilterContentProps) => {
             searchable
             value={form.values.facility}
             onChange={handleFacilityChange}
+            disabled={!form.values.university}
           />
 
           <Select
@@ -167,6 +168,7 @@ const UserFilterContent = (props: UserFilterContentProps) => {
             searchable
             value={form.values.department}
             onChange={handleDepartmentChange}
+            disabled={!form.values.facility}
           />
 
           <Group grow mt="xs">

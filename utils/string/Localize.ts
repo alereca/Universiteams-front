@@ -1,21 +1,8 @@
-import { ProjectRole } from '../../entities/Enrollment/Enrollment'
-import Language from '../../entities/HelpTypes/Language'
-import { UserAffiliationType } from '../../entities/User/UserAffiliation'
+import Language from '@/entities/HelpTypes/Language'
+import { ProjectRole } from '@/entities/Enrollment/Enrollment'
+import { UserAffiliationType } from '@/entities/User/UserAffiliation'
 
-export function localizeProjectRole(role: ProjectRole) {
-  switch (role) {
-    case ProjectRole.Admin:
-      return 'Administrador'
-    case ProjectRole.Member:
-      return 'Miembro'
-    case ProjectRole.Leader:
-      return 'Lider'
-    default:
-      return ''
-  }
-}
-
-export function localizeAffiliationType(type: UserAffiliationType): string {
+const affiliationType = (type: UserAffiliationType): string => {
   switch (type) {
     case UserAffiliationType.Student:
       return 'Alumno'
@@ -30,7 +17,7 @@ export function localizeAffiliationType(type: UserAffiliationType): string {
   }
 }
 
-export function localizeProjectLanguage(language: Language): string {
+const projectLanguage = (language: Language): string => {
   switch (language) {
     case Language.Spanish:
       return 'Español'
@@ -40,3 +27,19 @@ export function localizeProjectLanguage(language: Language): string {
       return 'Desconocido'
   }
 }
+
+const projectRole = (role: ProjectRole): string => {
+  switch (role) {
+    case ProjectRole.Admin:
+      return 'Administrador'
+    case ProjectRole.Member:
+      return 'Miembro'
+    case ProjectRole.Leader:
+      return 'Lider'
+    default:
+      return ''
+  }
+}
+
+const Localize = { affiliationType, projectLanguage, projectRole }
+export default Localize

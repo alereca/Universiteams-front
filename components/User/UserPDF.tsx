@@ -1,10 +1,11 @@
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
-import User from '@/entities/User/User'
-import Interest from '@/entities/Interest'
-import UserAffiliation from '@/entities/User/UserAffiliation'
+import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
+import Localize from 'utils/string/Localize'
+
 import Enrollment from '@/entities/Enrollment/Enrollment'
-import { localizeAffiliationType, localizeProjectRole } from '../../utils/string/Localize'
+import Interest from '@/entities/Interest'
+import User from '@/entities/User/User'
+import UserAffiliation from '@/entities/User/UserAffiliation'
 
 const styles = StyleSheet.create({
   page: {
@@ -73,6 +74,7 @@ interface UserPDFProps {
 const UserPDF: React.FC<UserPDFProps> = ({ user }) => (
   <Document>
     <Page size="A4" style={styles.page}>
+      <Image src="/universiteams_banner.png" />
       <View style={styles.section}>
         <Text style={styles.title}>Reporte de usuario</Text>
         <Text style={styles.subtitle}>
@@ -125,7 +127,7 @@ const UserPDF: React.FC<UserPDFProps> = ({ user }) => (
                   </View>
                   <View style={styles.tableCol}>
                     <Text style={styles.tableCell}>
-                      {localizeAffiliationType(affiliation.currentType)}
+                      {Localize.affiliationType(affiliation.currentType)}
                     </Text>
                   </View>
                 </View>
@@ -152,7 +154,7 @@ const UserPDF: React.FC<UserPDFProps> = ({ user }) => (
                     <Text style={styles.tableCell}>{enrollment.project.name}</Text>
                   </View>
                   <View style={[styles.tableCol, { width: '30%' }]}>
-                    <Text style={styles.tableCell}>{localizeProjectRole(enrollment.role)}</Text>
+                    <Text style={styles.tableCell}>{Localize.projectRole(enrollment.role)}</Text>
                   </View>
                 </View>
               ))}

@@ -4,12 +4,12 @@ import { useMediaQuery } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
 
 import { IconPlus } from '@tabler/icons-react'
+import Localize from 'utils/string/Localize'
 import Theme from 'src/app/theme'
 
 import ResearchDepartment from '@/entities/ResearchDepartment'
 import SelectItem from '@/entities/HelpTypes/SelectItem'
 import UserAffiliation, { UserAffiliationType } from '@/entities/User/UserAffiliation'
-import { localizeAffiliationType } from '../../utils/string/Localize'
 
 interface DepartmentMultiSelectProps {
   userAffiliations?: UserAffiliation[]
@@ -27,7 +27,7 @@ const DepartmentMultiSelect = ({
   const [data, setData] = useState<SelectItem[]>(
     userAffiliations?.map((affiliation) => ({
       value: `${affiliation.currentType}:${affiliation.researchDepartment.id.toString()}`,
-      label: `[${localizeAffiliationType(affiliation.currentType)}] ${
+      label: `[${Localize.affiliationType(affiliation.currentType)}] ${
         affiliation.researchDepartment.facility.institution.abbreviation
       } ${affiliation.researchDepartment.facility.abbreviation} ${
         affiliation.researchDepartment.name
@@ -77,7 +77,7 @@ const DepartmentMultiSelect = ({
       ...current,
       {
         value: newTuple,
-        label: `[${localizeAffiliationType(newType as UserAffiliationType)}] ${
+        label: `[${Localize.affiliationType(newType as UserAffiliationType)}] ${
           selectedDepartmentLabel?.facility.institution.abbreviation
         } ${selectedDepartmentLabel?.facility.abbreviation} ${selectedDepartmentLabel?.name}`,
       },
@@ -134,7 +134,7 @@ const DepartmentMultiSelect = ({
           placeholder='Ej. "Alumno"'
           data={Object.values(UserAffiliationType).map((type) => ({
             value: type,
-            label: localizeAffiliationType(type),
+            label: Localize.affiliationType(type),
           }))}
           value={newType}
           onChange={(value) => setNewType(value)}

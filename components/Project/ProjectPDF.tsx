@@ -1,11 +1,12 @@
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
+import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
 import { Html } from 'react-pdf-html'
-import Project from '@/entities/Project/Project'
+import Localize from 'utils/string/Localize'
+
 import Enrollment from '@/entities/Enrollment/Enrollment'
 import Interest from '@/entities/Interest'
+import Project from '@/entities/Project/Project'
 import ResearchDepartment from '@/entities/ResearchDepartment'
-import { localizeProjectLanguage, localizeProjectRole } from '../../utils/string/Localize'
 
 const styles = StyleSheet.create({
   page: {
@@ -79,7 +80,7 @@ const ProjectPDF: React.FC<ProjectPDFProps> = ({ project }) => {
     <View style={styles.table}>
       {[
         { label: 'Tipo', value: project.type },
-        { label: 'Idioma', value: localizeProjectLanguage(project.language) },
+        { label: 'Idioma', value: Localize.projectLanguage(project.language) },
         { label: 'Fecha creación', value: project.creationDate },
         { label: 'Cantidad de favoritos', value: project.favoriteCount.toString() },
       ].map((row, index) => (
@@ -114,7 +115,7 @@ const ProjectPDF: React.FC<ProjectPDFProps> = ({ project }) => {
               }>{`${enrollment.user.firstName} ${enrollment.user.lastName}`}</Text>
           </View>
           <View style={styles.tableCellEqual}>
-            <Text style={styles.tableCell}>{localizeProjectRole(enrollment.role)}</Text>
+            <Text style={styles.tableCell}>{Localize.projectRole(enrollment.role)}</Text>
           </View>
         </View>
       ))}
@@ -153,6 +154,7 @@ const ProjectPDF: React.FC<ProjectPDFProps> = ({ project }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        <Image src="/universiteams_banner.png" />
         <Text style={styles.title}>{project.name}</Text>
         <Text style={styles.subtitle}>Descripción:</Text>
         <Html style={styles.text}>{project.description.trim()}</Html>

@@ -12,15 +12,15 @@ import {
   useMantineColorScheme,
 } from '@mantine/core'
 import { modals } from '@mantine/modals'
-
 import { IconDots, IconHierarchy3, IconTrash } from '@tabler/icons-react'
+
 import { CurrentUserQueryOptions } from '@/services/currentUser'
+import Localize from 'utils/string/Localize'
 import styles from './EnrollmentList.module.css'
 
 import Enrollment from '@/entities/Enrollment/Enrollment'
 import { EnrollmentChangeRoleForm } from './EnrollmentChangeRole'
 import { EnrollmentRevoke } from './EnrollmentRevoke'
-import { localizeProjectRole } from '../../utils/string/Localize'
 
 interface EnrollmentListProps {
   projectId: number
@@ -95,7 +95,7 @@ export const EnrollmentList: React.FC<EnrollmentListProps> = ({
               {enrollment.user.firstName} {enrollment.user.lastName}
             </Text>
             <Badge variant="outline" color="blue.6" size="sm" radius="xs">
-              {localizeProjectRole(enrollment.role)}
+              {Localize.projectRole(enrollment.role)}
             </Badge>
           </Group>
           <Group mt="xs" gap="xs">

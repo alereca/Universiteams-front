@@ -1,21 +1,22 @@
 import React from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
+import { PDFDownloadLink } from '@react-pdf/renderer'
 import { ActionIcon, Alert, Badge, Card, Flex, Group, Tabs, Text } from '@mantine/core'
 import { useMantineColorScheme } from '@mantine/core'
 
 import { Users } from '@/services/users'
 import { IconBulb, IconFolders, IconPdf, IconSchool } from '@tabler/icons-react'
 
+import Dates from 'utils/string/Dates'
+import Localize from 'utils/string/Localize'
 import styles from '@/components/Enrollment/EnrollmentList.module.css'
+
 import SkeletonFull from '@/components/Common/Loader/SkeletonFull'
 import UserAffiliation from '@/entities/User/UserAffiliation'
 import Interest from '@/entities/Interest'
 import Enrollment from '@/entities/Enrollment/Enrollment'
-import Dates from 'utils/string/Dates'
 import ResearchDepartment from '@/entities/ResearchDepartment'
-import { localizeProjectRole } from '../../utils/string/Localize'
-import { PDFDownloadLink } from '@react-pdf/renderer'
 import UserPDF from './UserPDF'
 
 interface UserDetailsParams {
@@ -192,7 +193,7 @@ const UserDetails = (props: UserDetailsParams) => {
                         )}
                     </Group>
                     <Badge variant="outline" color="blue.6" size="sm" radius="xs">
-                      {localizeProjectRole(enrollment.role)}
+                      {Localize.projectRole(enrollment.role)}
                     </Badge>
                   </Group>
                 </Card>

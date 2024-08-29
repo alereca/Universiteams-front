@@ -5,10 +5,11 @@ import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 
+import Localize from 'utils/string/Localize'
+import { Projects, ProjectsQueryKey } from '@/services/projects'
+
 import Enrollment, { ProjectRole } from '@/entities/Enrollment/Enrollment'
 import { EnrollmentChangeRole } from '@/entities/Enrollment/EnrollmentChangeRole'
-import { Projects, ProjectsQueryKey } from '@/services/projects'
-import { localizeProjectRole } from '../../utils/string/Localize'
 
 interface EnrollmentChangeRoleProps {
   projectId: number
@@ -58,7 +59,7 @@ export const EnrollmentChangeRoleForm = (props: EnrollmentChangeRoleProps): Reac
         placeholder="Pick value"
         data={Object.values(ProjectRole).map((role) => ({
           value: role,
-          label: localizeProjectRole(role),
+          label: Localize.projectRole(role),
         }))}
         {...form.getInputProps('role')}
       />

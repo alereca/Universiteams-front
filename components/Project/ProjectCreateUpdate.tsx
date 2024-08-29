@@ -15,14 +15,16 @@ import {
   IconSchool,
   IconWorldWww,
 } from '@tabler/icons-react'
+
 import { CurrentUserQueryOptions } from '@/services/currentUser'
-import { InterestQueryKey, Interests } from '@/services/interests'
-import { Projects, ProjectsQueryKey } from '@/services/projects'
 import {
   DepartmentsQueryKey,
   ResearchDepartmentRelations,
   ResearchDepartments,
 } from '@/services/departments'
+import { InterestQueryKey, Interests } from '@/services/interests'
+import Localize from 'utils/string/Localize'
+import { Projects, ProjectsQueryKey } from '@/services/projects'
 
 import Interest from '@/entities/Interest'
 import Language from '@/entities/HelpTypes/Language'
@@ -30,11 +32,10 @@ import { ProjectNewRequest, ProjectNewResponse } from '@/entities/Project/Projec
 import ProjectType from '@/entities/Project/ProjectType'
 import ResearchDepartment from '@/entities/ResearchDepartment'
 
-import InfoMessage from '../Common/InfoMessage/InfoMessage'
+import InfoMessage from '@/components/Common/InfoMessage/InfoMessage'
 import { NotLoggedError } from '@/components/Account/NotLoggedError'
 import { verifyEmailNotification } from '@/components/Account/VerifyEmailNotification'
-import TextEditor from '../Common/TextEditor/TextEditor'
-import { localizeProjectLanguage } from '../../utils/string/Localize'
+import TextEditor from '@/components/Common/TextEditor/TextEditor'
 
 interface ProjectCreateUpdateProps {
   id?: number
@@ -288,7 +289,7 @@ const ProjectCreateUpdate = (props?: ProjectCreateUpdateProps) => {
               placeholder="Español"
               data={Object.values(Language).map((language) => ({
                 value: language,
-                label: localizeProjectLanguage(language),
+                label: Localize.projectLanguage(language),
               }))}
               required
               clearable

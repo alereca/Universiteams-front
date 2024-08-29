@@ -20,7 +20,7 @@ const ErrorNotFound = () => {
         </Link>
       </Group>
       <Group mt={'2rem'}>
-        <Link href="/about#reportBug">
+        <Link href="/help#reportBug">
           <Button color="orange.6">Reportar bug</Button>
         </Link>
       </Group>

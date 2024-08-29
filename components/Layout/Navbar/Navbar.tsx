@@ -8,11 +8,11 @@ import {
   IconEdit,
   IconFolderHeart,
   IconFolders,
+  IconHelp,
   IconMapPin,
   IconSchool,
   IconSend,
   IconTent,
-  IconTerminal2,
   IconUserCircle,
   IconUsers,
 } from '@tabler/icons-react'
@@ -24,8 +24,6 @@ import { RequestState, ProjectSortAttribute } from '../../../entities/Project/Pr
 import { Account } from '../../../services/account'
 import UserBanner from './UserBanner'
 import { useRouter } from 'next/navigation'
-
-const mockAppVersion = 'v1.0.0'
 
 // Icon properties
 const iconSize = 40
@@ -144,15 +142,9 @@ const Navbar = () => {
       )}
       <AppShell.Section grow>
         <NavbarItem text="Sobre Nosotros" link="/about" icon={<IconTent size={iconSize} />} />
+        <NavbarItem text="Ayuda" link="/help" icon={<IconHelp size={iconSize} />} />
       </AppShell.Section>
       <Divider />
-      <AppShell.Section>
-        <NavbarItem
-          text={`Universiteams ${mockAppVersion}`}
-          icon={<IconTerminal2 size={30} />}
-          small
-        />
-      </AppShell.Section>
     </>
   )
 }

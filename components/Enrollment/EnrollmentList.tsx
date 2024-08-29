@@ -159,7 +159,7 @@ export const EnrollmentList: React.FC<EnrollmentListProps> = ({
                       event.stopPropagation()
                       handleRevokeEnrollment(enrollment)
                     }}
-                    leftSection={<IconTrash color="red" width={rem(14)} height={rem(14)} />}>
+                    leftSection={<IconTrash color="red" />}>
                     Revocar inscripción
                   </Menu.Item>
                   <Menu.Item
@@ -167,7 +167,7 @@ export const EnrollmentList: React.FC<EnrollmentListProps> = ({
                       event.stopPropagation()
                       handleChangeRole(enrollment)
                     }}
-                    leftSection={<IconHierarchy3 color="gray" width={rem(14)} height={rem(14)} />}>
+                    leftSection={<IconHierarchy3 color="gray" />}>
                     Cambiar rol
                   </Menu.Item>
                 </Menu.Dropdown>

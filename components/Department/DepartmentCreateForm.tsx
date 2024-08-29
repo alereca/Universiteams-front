@@ -80,28 +80,30 @@ const DepartmentCreateForm: React.FC<DepartmentCreateFormProps> = ({
       <LoadingOverlay visible={createMutation.isPending || facilitiesQuery.isLoading} />
       <Title order={3}>Editar Departamento</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
-          label="Nombre"
-          placeholder="Ingrese el nombre de el departamento"
-          {...form.getInputProps('name')}
-        />
-        <TextInput
-          label="Abreviatura"
-          placeholder="Ingrese la abreviatura de el departamento"
-          {...form.getInputProps('abbreviation')}
-        />
-        <TextInput
-          label="Web"
-          placeholder="Ingrese el sitio web de el departamento"
-          {...form.getInputProps('web')}
-        />
-        <Select
-          label="Regional"
-          placeholder="Seleccione una regional"
-          searchable
-          data={facilities}
-          {...form.getInputProps('facilityId')}
-        />
+        <Stack gap="xs">
+          <TextInput
+            label="Nombre"
+            placeholder="Ingrese el nombre de el departamento"
+            {...form.getInputProps('name')}
+          />
+          <TextInput
+            label="Abreviatura"
+            placeholder="Ingrese la abreviatura de el departamento"
+            {...form.getInputProps('abbreviation')}
+          />
+          <TextInput
+            label="Web"
+            placeholder="Ingrese el sitio web de el departamento"
+            {...form.getInputProps('web')}
+          />
+          <Select
+            label="Regional"
+            placeholder="Seleccione una regional"
+            searchable
+            data={facilities}
+            {...form.getInputProps('facilityId')}
+          />
+        </Stack>
         <Group justify="flex-end" mt="xl" gap="xs">
           <Button color="red" onClick={() => table.setCreatingRow(null)}>
             Cancelar

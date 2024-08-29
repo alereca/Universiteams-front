@@ -66,21 +66,23 @@ const FacilityEditForm: React.FC<FacilityEditFormProps> = ({
       <LoadingOverlay visible={updateMutation.isPending} />
       <Title order={3}>Editar Regional</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
-          label="Nombre"
-          placeholder="Ingrese el nombre de la regional"
-          {...form.getInputProps('name')}
-        />
-        <TextInput
-          label="Abreviatura"
-          placeholder="Ingrese la abreviatura de la regional"
-          {...form.getInputProps('abbreviation')}
-        />
-        <TextInput
-          label="Web"
-          placeholder="Ingrese el sitio web de la regional"
-          {...form.getInputProps('web')}
-        />
+        <Stack gap="xs">
+          <TextInput
+            label="Nombre"
+            placeholder="Ingrese el nombre de la regional"
+            {...form.getInputProps('name')}
+          />
+          <TextInput
+            label="Abreviatura"
+            placeholder="Ingrese la abreviatura de la regional"
+            {...form.getInputProps('abbreviation')}
+          />
+          <TextInput
+            label="Web"
+            placeholder="Ingrese el sitio web de la regional"
+            {...form.getInputProps('web')}
+          />
+        </Stack>
         <Group justify="flex-end" mt="xl" gap="xs">
           <Button color="red" onClick={() => table.setEditingRow(null)}>
             Cancelar

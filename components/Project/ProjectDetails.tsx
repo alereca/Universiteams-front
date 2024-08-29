@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { PDFDownloadLink } from '@react-pdf/renderer'
 import {
   ActionIcon,
   Alert,
@@ -26,19 +27,21 @@ import {
   IconBubbleText,
   IconEdit,
   IconTrash,
+  IconPdf,
 } from '@tabler/icons-react'
+
+import sanitizeHtml from 'sanitize-html'
+import Dates from 'utils/string/Dates'
 
 import { CurrentUserQueryOptions } from '@/services/currentUser'
 import { EnrollmentRequestsQueryKey, Projects, ProjectsQueryKey } from '@/services/projects'
-
-import Dates from '../../utils/string/Dates'
 import { EnrollmentRequestShow } from '@/entities/Enrollment/EnrollmentRequestShow'
-import sanitizeHtml from 'sanitize-html'
 
 import EnrollmentButton from '@/components/Enrollment/EnrollmentButton'
 import { EnrollmentList } from '../Enrollment/EnrollmentList'
 import { EnrollmentRequestAdminForm } from '../Enrollment/EnrollmentRequestAdmin'
 import { NotLoggedError } from '@/components/Account/NotLoggedError'
+import ProjectPDF from '@/components/Project/ProjectPDF'
 import SkeletonFull from '@/components/Common/Loader/SkeletonFull'
 import { verifyEmailNotification } from '@/components/Account/VerifyEmailNotification'
 
@@ -300,6 +303,15 @@ const ProjectDetails = (props: ProjectDetailsParams) => {
             </ActionIcon>
             <Text size="sm">{project.favoriteCount}</Text>
           </Group>
+          <PDFDownloadLink
+            document={<ProjectPDF project={project} />}
+            fileName={`project_document_${Dates.getDateTimeShort()}.pdf`}>
+            {() => (
+              <ActionIcon variant="transparent" aria-label="Exportar a PDF" size="lg" color="blue">
+                <IconPdf />
+              </ActionIcon>
+            )}
+          </PDFDownloadLink>
 
           {/* Admin */}
           {project?.requestEnrollmentCount !== undefined &&

@@ -6,5 +6,10 @@ const formatDate = (dateString: string | undefined) => {
   return new Date(dateString).toLocaleDateString()
 }
 
-const Dates = { formatDate }
+// Get current date & time with a filename-friendly format
+const getDateTimeShort = () => {
+  return new Date().toISOString().replace(/:/g, '-').replace('T', '_').split('.')[0]
+}
+
+const Dates = { getDateTimeShort, formatDate }
 export default Dates

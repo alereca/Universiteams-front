@@ -1,6 +1,7 @@
 import Enrollment from '@/entities/Enrollment/Enrollment'
 import Interest from '@/entities/Interest'
 import ResearchDepartment from '@/entities/ResearchDepartment'
+import Language from '@/entities/HelpTypes/Language'
 
 export enum ProjectSortAttribute {
   Name = 'name',
@@ -20,6 +21,8 @@ interface ProjectInList {
   id: number
   name: string
   type: string
+  language: Language
+  web?: string
   userCount: number
   favoriteCount: number
   creationDate: string

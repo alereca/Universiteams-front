@@ -9,21 +9,7 @@ import Theme from 'src/app/theme'
 import ResearchDepartment from '@/entities/ResearchDepartment'
 import SelectItem from '@/entities/HelpTypes/SelectItem'
 import UserAffiliation, { UserAffiliationType } from '@/entities/User/UserAffiliation'
-
-function translateUserAffiliationType(type: UserAffiliationType): string {
-  switch (type) {
-    case UserAffiliationType.Student:
-      return 'Alumno'
-    case UserAffiliationType.Professor:
-      return 'Profesor'
-    case UserAffiliationType.Researcher:
-      return 'Investigador'
-    case UserAffiliationType.Other:
-      return 'Otro'
-    default:
-      return 'Desconocido'
-  }
-}
+import { localizeAffiliationType } from '../../utils/string/Localize'
 
 interface DepartmentMultiSelectProps {
   userAffiliations?: UserAffiliation[]
@@ -41,7 +27,7 @@ const DepartmentMultiSelect = ({
   const [data, setData] = useState<SelectItem[]>(
     userAffiliations?.map((affiliation) => ({
       value: `${affiliation.currentType}:${affiliation.researchDepartment.id.toString()}`,
-      label: `[${translateUserAffiliationType(affiliation.currentType)}] ${
+      label: `[${localizeAffiliationType(affiliation.currentType)}] ${
         affiliation.researchDepartment.facility.institution.abbreviation
       } ${affiliation.researchDepartment.facility.abbreviation} ${
         affiliation.researchDepartment.name
@@ -91,7 +77,7 @@ const DepartmentMultiSelect = ({
       ...current,
       {
         value: newTuple,
-        label: `[${translateUserAffiliationType(newType as UserAffiliationType)}] ${
+        label: `[${localizeAffiliationType(newType as UserAffiliationType)}] ${
           selectedDepartmentLabel?.facility.institution.abbreviation
         } ${selectedDepartmentLabel?.facility.abbreviation} ${selectedDepartmentLabel?.name}`,
       },
@@ -148,7 +134,7 @@ const DepartmentMultiSelect = ({
           placeholder='Ej. "Alumno"'
           data={Object.values(UserAffiliationType).map((type) => ({
             value: type,
-            label: translateUserAffiliationType(type),
+            label: localizeAffiliationType(type),
           }))}
           value={newType}
           onChange={(value) => setNewType(value)}

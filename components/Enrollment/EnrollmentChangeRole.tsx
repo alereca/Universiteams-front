@@ -8,6 +8,7 @@ import { notifications } from '@mantine/notifications'
 import Enrollment, { ProjectRole } from '@/entities/Enrollment/Enrollment'
 import { EnrollmentChangeRole } from '@/entities/Enrollment/EnrollmentChangeRole'
 import { Projects, ProjectsQueryKey } from '@/services/projects'
+import { localizeProjectRole } from '../../utils/string/Localize'
 
 interface EnrollmentChangeRoleProps {
   projectId: number
@@ -55,7 +56,10 @@ export const EnrollmentChangeRoleForm = (props: EnrollmentChangeRoleProps): Reac
       <Select
         label={`Rol de ${props.enrollment.user.firstName} ${props.enrollment.user.lastName}`}
         placeholder="Pick value"
-        data={Object.values(ProjectRole)}
+        data={Object.values(ProjectRole).map((role) => ({
+          value: role,
+          label: localizeProjectRole(role),
+        }))}
         {...form.getInputProps('role')}
       />
 

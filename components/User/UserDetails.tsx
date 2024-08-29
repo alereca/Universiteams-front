@@ -1,11 +1,11 @@
 import React from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
-import { Alert, Badge, Card, Flex, Group, Tabs, Text } from '@mantine/core'
+import { ActionIcon, Alert, Badge, Card, Flex, Group, Tabs, Text } from '@mantine/core'
 import { useMantineColorScheme } from '@mantine/core'
 
 import { Users } from '@/services/users'
-import { IconBulb, IconFolders, IconSchool } from '@tabler/icons-react'
+import { IconBulb, IconFolders, IconPdf, IconSchool } from '@tabler/icons-react'
 
 import styles from '@/components/Enrollment/EnrollmentList.module.css'
 import SkeletonFull from '@/components/Common/Loader/SkeletonFull'
@@ -15,6 +15,8 @@ import Enrollment from '@/entities/Enrollment/Enrollment'
 import Dates from 'utils/string/Dates'
 import ResearchDepartment from '@/entities/ResearchDepartment'
 import { localizeProjectRole } from '../../utils/string/Localize'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import UserPDF from './UserPDF'
 
 interface UserDetailsParams {
   id: number
@@ -115,6 +117,17 @@ const UserDetails = (props: UserDetailsParams) => {
             </Group>
           </Group>
         )}
+        <Flex justify="flex-end" align="center" gap={'1rem'}>
+          <PDFDownloadLink
+            document={<UserPDF user={user} />}
+            fileName={`user_document_${Dates.getDateTimeShort()}.pdf`}>
+            {() => (
+              <ActionIcon variant="transparent" aria-label="Exportar a PDF" size="lg" color="blue">
+                <IconPdf />
+              </ActionIcon>
+            )}
+          </PDFDownloadLink>
+        </Flex>
         <Tabs
           mt={'2rem'}
           value={searchParams.get('activeTab') ?? UserDetailsTabs.Projects}

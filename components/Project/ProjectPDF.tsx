@@ -10,22 +10,33 @@ import ResearchDepartment from '@/entities/ResearchDepartment'
 
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35,
+    paddingTop: 16,
+    paddingHorizontal: 32,
+    paddingBottom: 64,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginVertical: 24,
   },
-  subtitle: {
+  subtitleMain: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+  },
+  subtitleSection: {
     fontSize: 18,
+    fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 10,
   },
   text: {
     fontSize: 12,
     marginBottom: 10,
+  },
+  listItem: {
+    fontSize: 12,
+    marginBottom: 5,
   },
   table: {
     display: 'flex',
@@ -36,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   tableCellHeader: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#bdbdbd',
     fontWeight: 'bold',
   },
   tableCell: {
@@ -155,8 +166,9 @@ const ProjectPDF: React.FC<ProjectPDFProps> = ({ project }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <Image src="/universiteams_banner.png" />
-        <Text style={styles.title}>{project.name}</Text>
-        <Text style={styles.subtitle}>Descripción:</Text>
+        <Text style={styles.title}>Reporte de proyecto</Text>
+        <Text style={styles.subtitleMain}>{project.name}</Text>
+        <Text style={styles.subtitleSection}>Descripción:</Text>
         <Html style={styles.text}>{project.description.trim()}</Html>
 
         {createProjectDetailsTable()}
@@ -165,7 +177,7 @@ const ProjectPDF: React.FC<ProjectPDFProps> = ({ project }) => {
 
         {Array.isArray(project.interests) && project.interests.length > 0 && (
           <View>
-            <Text style={styles.subtitle}>Intereses:</Text>
+            <Text style={styles.subtitleSection}>Intereses:</Text>
             {project.interests.map((interest: Interest) => (
               <Text key={interest.id} style={styles.text}>
                 • {interest.name}
@@ -176,14 +188,14 @@ const ProjectPDF: React.FC<ProjectPDFProps> = ({ project }) => {
 
         {Array.isArray(project.researchDepartments) && project.researchDepartments.length > 0 && (
           <View>
-            <Text style={styles.subtitle}>Departamentos de investigación:</Text>
+            <Text style={styles.subtitleSection}>Departamentos de investigación:</Text>
             {createResearchDepartmentsTable()}
           </View>
         )}
 
         {Array.isArray(project.enrollments) && project.enrollments.length > 0 && (
           <View>
-            <Text style={styles.subtitle}>Miembros ({project.userCount}):</Text>
+            <Text style={styles.subtitleSection}>Miembros ({project.userCount}):</Text>
             {createMembersTable()}
           </View>
         )}

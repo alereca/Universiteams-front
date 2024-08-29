@@ -4,18 +4,19 @@ import { NextPage } from 'next'
 import { useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { Center, Pagination } from '@mantine/core'
-import { ProjectQueryOptions } from '@/services/projects'
+
 import { CurrentUserQueryOptions } from '@/services/currentUser'
 import { DepartmentsQueryKey, ResearchDepartments } from '@/services/departments'
 import { Facilities, FacilitiesQueryKey } from '@/services/facilities'
 import { Institutions, InstitutionQueryKey } from '@/services/institutions'
 import { InterestQueryKey, Interests } from '@/services/interests'
-import { Users } from '@/services/users'
+import { ProjectQueryOptions } from '@/services/projects'
+
 import Filter from '@/components/Common/Filter/Filter'
+import { Order } from '@/entities/HelpTypes/Order'
 import ProjectFilterContent from '@/components/Project/ProjectFilterContent'
 import ProjectsList from '@/components/Project/ProjectsList'
-import { Order } from '@/entities/HelpTypes/Order'
-import { ProjectSortAttribute, RequestState } from '../../../entities/Project/ProjectInList'
+import { ProjectSortAttribute, RequestState } from '@/entities/Project/ProjectInList'
 
 const ProjectsPage: NextPage = () => {
   const projectsPerPage = 5
@@ -41,11 +42,6 @@ const ProjectsPage: NextPage = () => {
   useEffect(() => {
     setCurrentPage(1)
   }, [searchQuery])
-
-  const usersQuery = useQuery({
-    queryKey: ['users'],
-    queryFn: () => Users.getUsers,
-  })
 
   const facilitiesQuery = useQuery({
     queryKey: [FacilitiesQueryKey, searchQuery.get('university')],
@@ -105,16 +101,6 @@ const ProjectsPage: NextPage = () => {
     })
   )
 
-  const users = useMemo(() => {
-    if (Array.isArray(usersQuery.data)) {
-      return usersQuery.data.map((user) => ({
-        value: user.id.toString(),
-        label: `${user.firstName} ${user.lastName}`,
-      }))
-    }
-    return []
-  }, [usersQuery.data])
-
   const facilities = useMemo(() => {
     if (facilitiesQuery.data) {
       return facilitiesQuery.data.map((facility) => ({
@@ -171,7 +157,6 @@ const ProjectsPage: NextPage = () => {
             facilities={facilities}
             departments={departments}
             interests={interests}
-            users={users}
           />
         }>
         <ProjectsList projects={projectsQuery.data?.projects} />

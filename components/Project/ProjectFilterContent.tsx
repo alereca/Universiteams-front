@@ -18,7 +18,6 @@ interface ProjectFilterContentProps {
   facilities: SelectItem[]
   departments: SelectItem[]
   interests: SelectItem[]
-  users: SelectItem[]
 }
 
 const ProjectFilterContent = (props: ProjectFilterContentProps) => {
@@ -30,7 +29,6 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
       university: '',
       facility: '',
       department: '',
-      user: '',
       interests: [] as string[],
       type: '',
       isDown: false,
@@ -48,7 +46,6 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
       university: searchQuery.get('university') ?? '',
       facility: searchQuery.get('facility') ?? '',
       department: searchQuery.get('department') ?? '',
-      user: searchQuery.get('user') ?? '',
       interests: searchQuery.getAll('interest') ?? [],
       type: searchQuery.get('type') ?? '',
       isDown: searchQuery.get('isDown') === 'true',
@@ -73,10 +70,6 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
 
   const handleDepartmentChange = (value: string | null) => {
     Url.setUrlParam(router, pathname, searchQuery, 'department', value)
-  }
-
-  const handleUserChange = (value: string | null) => {
-    Url.setUrlParam(router, pathname, searchQuery, 'user', value)
   }
 
   const handleInterestsChange = (value: string[]) => {
@@ -186,21 +179,6 @@ const ProjectFilterContent = (props: ProjectFilterContentProps) => {
             value={form.values.department}
             onChange={handleDepartmentChange}
             disabled={!form.values.facility}
-          />
-
-          <Select
-            label="Usuario"
-            placeholder='Ej: "Juan Perez"'
-            data={[{ value: '', label: '' }].concat(
-              props.users.map((attr) => ({
-                value: attr.value,
-                label: attr.label,
-              }))
-            )}
-            clearable
-            searchable
-            value={form.values.user}
-            onChange={handleUserChange}
           />
 
           <MultiSelect

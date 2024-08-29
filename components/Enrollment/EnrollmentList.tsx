@@ -1,16 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
-import {
-  ActionIcon,
-  Badge,
-  Card,
-  Group,
-  Menu,
-  Text,
-  rem,
-  useMantineColorScheme,
-} from '@mantine/core'
+import { ActionIcon, Badge, Card, Group, Menu, Text, useMantineColorScheme } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { IconDots, IconHierarchy3, IconTrash } from '@tabler/icons-react'
 
@@ -18,7 +9,7 @@ import { CurrentUserQueryOptions } from '@/services/currentUser'
 import Localize from 'utils/string/Localize'
 import styles from './EnrollmentList.module.css'
 
-import Enrollment from '@/entities/Enrollment/Enrollment'
+import Enrollment, { ProjectRole } from '@/entities/Enrollment/Enrollment'
 import { EnrollmentChangeRoleForm } from './EnrollmentChangeRole'
 import { EnrollmentRevoke } from './EnrollmentRevoke'
 
@@ -138,42 +129,44 @@ export const EnrollmentList: React.FC<EnrollmentListProps> = ({
             ))}
           </Group>
 
-          {isAdmin && currentUser?.id !== enrollment.user.id && (
-            <Group mt="sm" justify="flex-end">
-              <Menu shadow="md" width={200}>
-                <Menu.Target>
-                  <ActionIcon
-                    variant="transparent"
-                    aria-label="Ver opciones para esta inscripción"
-                    size="lg"
-                    color="gray"
-                    onClick={(event) => {
-                      event.stopPropagation()
-                    }}>
-                    <IconDots />
-                  </ActionIcon>
-                </Menu.Target>
-                <Menu.Dropdown>
-                  <Menu.Item
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      handleRevokeEnrollment(enrollment)
-                    }}
-                    leftSection={<IconTrash color="red" />}>
-                    Revocar inscripción
-                  </Menu.Item>
-                  <Menu.Item
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      handleChangeRole(enrollment)
-                    }}
-                    leftSection={<IconHierarchy3 color="gray" />}>
-                    Cambiar rol
-                  </Menu.Item>
-                </Menu.Dropdown>
-              </Menu>
-            </Group>
-          )}
+          {isAdmin &&
+            currentUser?.id !== enrollment.user.id &&
+            enrollment.role !== ProjectRole.Leader && (
+              <Group mt="sm" justify="flex-end">
+                <Menu shadow="md" width={200}>
+                  <Menu.Target>
+                    <ActionIcon
+                      variant="transparent"
+                      aria-label="Ver opciones para esta inscripción"
+                      size="lg"
+                      color="gray"
+                      onClick={(event) => {
+                        event.stopPropagation()
+                      }}>
+                      <IconDots />
+                    </ActionIcon>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        handleRevokeEnrollment(enrollment)
+                      }}
+                      leftSection={<IconTrash color="red" />}>
+                      Revocar inscripción
+                    </Menu.Item>
+                    <Menu.Item
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        handleChangeRole(enrollment)
+                      }}
+                      leftSection={<IconHierarchy3 color="gray" />}>
+                      Cambiar rol
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </Group>
+            )}
         </Card>
       ))}
     </>

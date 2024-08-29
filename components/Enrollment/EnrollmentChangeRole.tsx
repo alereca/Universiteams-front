@@ -57,10 +57,12 @@ export const EnrollmentChangeRoleForm = (props: EnrollmentChangeRoleProps): Reac
       <Select
         label={`Rol de ${props.enrollment.user.firstName} ${props.enrollment.user.lastName}`}
         placeholder="Pick value"
-        data={Object.values(ProjectRole).map((role) => ({
-          value: role,
-          label: Localize.projectRole(role),
-        }))}
+        data={Object.values(ProjectRole)
+          .filter((role) => role !== ProjectRole.Leader)
+          .map((role) => ({
+            value: role,
+            label: Localize.projectRole(role),
+          }))}
         {...form.getInputProps('role')}
       />
 

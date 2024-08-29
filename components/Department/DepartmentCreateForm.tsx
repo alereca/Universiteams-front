@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Title, Flex, TextInput, Button, Stack, LoadingOverlay, Select } from '@mantine/core'
+import { Title, TextInput, Button, Stack, LoadingOverlay, Select, Group } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -102,9 +102,12 @@ const DepartmentCreateForm: React.FC<DepartmentCreateFormProps> = ({
           data={facilities}
           {...form.getInputProps('facilityId')}
         />
-        <Flex justify="flex-end" mt="xl">
-          <Button type="submit">Guardar Cambios</Button>
-        </Flex>
+        <Group justify="flex-end" mt="xl" gap="xs">
+          <Button color="red" onClick={() => table.setCreatingRow(null)}>
+            Cancelar
+          </Button>
+          <Button type="submit">Crear</Button>
+        </Group>
       </form>
     </Stack>
   )

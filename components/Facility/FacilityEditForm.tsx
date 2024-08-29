@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title, Flex, TextInput, Button, Stack, LoadingOverlay } from '@mantine/core'
+import { Title, TextInput, Button, Stack, LoadingOverlay, Group } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import Facility from '../../entities/Facility/Facility'
 import { notifications } from '@mantine/notifications'
@@ -81,9 +81,12 @@ const FacilityEditForm: React.FC<FacilityEditFormProps> = ({
           placeholder="Ingrese el sitio web de la regional"
           {...form.getInputProps('web')}
         />
-        <Flex justify="flex-end" mt="xl">
+        <Group justify="flex-end" mt="xl" gap="xs">
+          <Button color="red" onClick={() => table.setEditingRow(null)}>
+            Cancelar
+          </Button>
           <Button type="submit">Guardar Cambios</Button>
-        </Flex>
+        </Group>
       </form>
     </Stack>
   )

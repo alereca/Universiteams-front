@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title, Flex, TextInput, Button, Stack, LoadingOverlay } from '@mantine/core'
+import { Title, TextInput, Button, Stack, LoadingOverlay, Group } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -65,7 +65,7 @@ const InstitutionCreateForm: React.FC<InstitutionEditFormProps> = ({
   return (
     <Stack>
       <LoadingOverlay visible={createMutation.isPending || institutionsQuery.isLoading} />
-      <Title order={3}>Editar Institución</Title>
+      <Title order={3}>Crear Institución</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           label="Nombre"
@@ -82,9 +82,12 @@ const InstitutionCreateForm: React.FC<InstitutionEditFormProps> = ({
           placeholder="Ingrese el sitio web de la institución"
           {...form.getInputProps('web')}
         />
-        <Flex justify="flex-end" mt="xl">
-          <Button type="submit">Guardar Cambios</Button>
-        </Flex>
+        <Group justify="flex-end" mt="xl" gap="xs">
+          <Button color="red" onClick={() => table.setCreatingRow(null)}>
+            Cancelar
+          </Button>
+          <Button type="submit">Crear</Button>
+        </Group>
       </form>
     </Stack>
   )

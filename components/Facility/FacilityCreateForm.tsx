@@ -10,6 +10,7 @@ import { FacilityCreateDto } from '../../entities/Facility/FacilityCreateDto'
 import { InstitutionQueryKey, Institutions } from '../../services/institutions'
 import SelectItem from '../../entities/HelpTypes/SelectItem'
 import Validation from '../../utils/string/Validation'
+import { AxiosError } from 'axios'
 
 export interface FacilityEditFormProps {
   table: MRT_TableInstance<Facility>
@@ -29,10 +30,10 @@ const FacilityCreateForm: React.FC<FacilityEditFormProps> = ({ table }: Facility
       })
       table.setCreatingRow(null)
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       notifications.show({
         title: 'Error al crear la regional',
-        message: error.message,
+        message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
     },

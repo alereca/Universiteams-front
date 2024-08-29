@@ -24,6 +24,7 @@ import {
 import ResearchDepartment from '../../../entities/ResearchDepartment'
 import DepartmentCreateForm from '../../../components/Department/DepartmentCreateForm'
 import DepartmentUpdateForm from '../../../components/Department/DepartmentUpdateForm'
+import { MRT_Localization_ES } from 'mantine-react-table/locales/es'
 
 const DepartmentsAdminPage: NextPage = () => {
   const router = useRouter()
@@ -39,11 +40,6 @@ const DepartmentsAdminPage: NextPage = () => {
 
   const columns = useMemo<MRT_ColumnDef<ResearchDepartment>[]>(
     () => [
-      {
-        accessorKey: 'id',
-        header: 'ID',
-        size: 80,
-      },
       {
         accessorKey: 'name',
         header: 'Nombre',
@@ -79,10 +75,10 @@ const DepartmentsAdminPage: NextPage = () => {
       })
       modals.closeAll()
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       notifications.show({
         title: 'Error al eliminar el departmento',
-        message: error.message,
+        message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
       modals.closeAll()
@@ -110,6 +106,7 @@ const DepartmentsAdminPage: NextPage = () => {
     columns,
     data: departmentsQuery.data ?? [],
     enableColumnPinning: true,
+    localization: MRT_Localization_ES,
     initialState: {
       columnPinning: {
         left: ['mrt-row-actions'],

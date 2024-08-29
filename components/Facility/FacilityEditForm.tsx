@@ -9,6 +9,7 @@ import { modals } from '@mantine/modals'
 import { MRT_TableInstance } from 'mantine-react-table'
 import { FacilityUpdateDto } from '../../entities/Facility/FacilityUpdateDto'
 import Validation from '../../utils/string/Validation'
+import { AxiosError } from 'axios'
 
 export interface FacilityEditFormProps {
   facility: Facility
@@ -33,10 +34,10 @@ const FacilityEditForm: React.FC<FacilityEditFormProps> = ({
       table.setEditingRow(null)
       modals.closeAll()
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       notifications.show({
         title: 'Error al actualizar la regional',
-        message: error.message,
+        message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
     },

@@ -1,43 +1,28 @@
 'use client'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import {
   MantineReactTable,
   useMantineReactTable,
   type MRT_ColumnDef,
-  MRT_EditActionButtons,
   MRT_Row,
 } from 'mantine-react-table'
 import { NextPage } from 'next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { InstitutionQueryKey, Institutions } from '../../../services/institutions'
-import Institution from '../../../entities/Institution'
-import {
-  ActionIcon,
-  Alert,
-  Anchor,
-  Box,
-  Button,
-  Center,
-  Flex,
-  Stack,
-  Text,
-  Title,
-  Tooltip,
-} from '@mantine/core'
+import { ActionIcon, Alert, Anchor, Box, Button, Center, Flex, Text, Tooltip } from '@mantine/core'
 import { IconAlertCircle, IconArrowLeft, IconEdit, IconTrash } from '@tabler/icons-react'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
-import { InstitutionUpdateDto } from '../../../entities/Institution/InstitutionUpdateDto'
-import { InstitutionCreateDto } from '../../../entities/Institution/InstitutionCreateDto'
 import { CurrentUserQueryOptions, UserSystemRole } from '../../../services/currentUser'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { excludeProperty } from '../../../utils/mapper'
 import SkeletonFull from '../../../components/Common/Loader/SkeletonFull'
+import { Institutions, InstitutionQueryKey } from '../../../services/institutions'
+import InstitutionEditForm from '../../../components/Institution/InstitutionEditForm'
+import InstitutionCreateForm from '../../../components/Institution/InstitutionCreateForm'
+import { MRT_Localization_ES } from 'mantine-react-table/locales/es'
+import Institution from '../../../entities/Institution'
 
 const InstitutionAdminPage: NextPage = () => {
-  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({})
-
   const router = useRouter()
 
   const handleGoToLoginClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -52,97 +37,24 @@ const InstitutionAdminPage: NextPage = () => {
   const columns = useMemo<MRT_ColumnDef<Institution>[]>(
     () => [
       {
-        accessorKey: 'id',
-        header: 'ID',
-        enableEditing: false,
-        size: 80,
-      },
-      {
         accessorKey: 'name',
         header: 'Nombre',
-        mantineEditTextInputProps: {
-          required: true,
-          error: validationErrors?.name,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              name: undefined,
-            }),
-        },
       },
       {
         accessorKey: 'abbreviation',
         header: 'Abreviatura',
-        mantineEditTextInputProps: {
-          required: true,
-          error: validationErrors?.abbreviation,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              abbreviation: undefined,
-            }),
-        },
       },
       {
         accessorKey: 'web',
         header: 'Web',
-        mantineEditTextInputProps: {
-          type: 'url',
-          error: validationErrors?.web,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              web: undefined,
-            }),
-        },
       },
     ],
-    [validationErrors]
+    []
   )
 
   const institutionsQuery = useQuery({
     queryKey: [InstitutionQueryKey],
     queryFn: () => Institutions.getInstitutions(),
-  })
-
-  const createMutation = useMutation({
-    mutationFn: (newInstitution: InstitutionCreateDto) =>
-      Institutions.createInstitution(newInstitution),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [InstitutionQueryKey] })
-      notifications.show({
-        title: 'Institución creada',
-        message: 'La institución se ha creado exitosamente',
-        color: 'green',
-      })
-    },
-    onError: (error) => {
-      notifications.show({
-        title: 'Error al crear la institución',
-        message: error.message,
-        color: 'red',
-      })
-    },
-  })
-
-  const updateMutation = useMutation({
-    mutationFn: (updatedInstitution: InstitutionUpdateDto) =>
-      Institutions.updateInstitution(updatedInstitution),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [InstitutionQueryKey] })
-      notifications.show({
-        title: 'Institución actualizada',
-        message: 'La institución se ha actualizado exitosamente',
-        color: 'green',
-      })
-    },
-    onError: (error) => {
-      notifications.show({
-        title: 'Error al actualizar la institución',
-        message: error.message,
-        color: 'red',
-      })
-    },
   })
 
   const deleteMutation = useMutation({
@@ -156,10 +68,10 @@ const InstitutionAdminPage: NextPage = () => {
       })
       modals.closeAll()
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       notifications.show({
         title: 'Error al eliminar la institución',
-        message: error.message,
+        message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
       modals.closeAll()
@@ -184,6 +96,7 @@ const InstitutionAdminPage: NextPage = () => {
     columns,
     data: institutionsQuery.data ?? [],
     enableColumnPinning: true,
+    localization: MRT_Localization_ES,
     initialState: {
       columnPinning: {
         left: ['mrt-row-actions'],
@@ -204,53 +117,12 @@ const InstitutionAdminPage: NextPage = () => {
         minHeight: '500px',
       },
     },
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onCreatingRowSave: async ({
-      values,
-      exitCreatingMode,
-    }: {
-      exitCreatingMode: () => void
-      values: InstitutionCreateDto
-    }) => {
-      const newValidationErrors = validateInstitution(values)
-      if (Object.values(newValidationErrors).some((error) => error)) {
-        setValidationErrors(newValidationErrors)
-        return
-      }
-      setValidationErrors({})
-      const createValues = excludeProperty(values as Institution, 'id')
-      await createMutation.mutateAsync(createValues)
-      exitCreatingMode()
+    renderCreateRowModalContent: ({ table }) => {
+      return <InstitutionCreateForm table={table} />
     },
-    onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: async ({ values, table }) => {
-      const newValidationErrors = validateInstitution(values)
-      if (Object.values(newValidationErrors).some((error) => error)) {
-        setValidationErrors(newValidationErrors)
-        return
-      }
-      setValidationErrors({})
-      await updateMutation.mutateAsync(values)
-      table.setEditingRow(null)
+    renderEditRowModalContent: ({ row, table }) => {
+      return <InstitutionEditForm institution={row.original} table={table} />
     },
-    renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
-      <Stack>
-        <Title order={3}>Crear Nueva Institución</Title>
-        {internalEditComponents}
-        <Flex justify="flex-end" mt="xl">
-          <MRT_EditActionButtons variant="text" table={table} row={row} />
-        </Flex>
-      </Stack>
-    ),
-    renderEditRowModalContent: ({ table, row, internalEditComponents }) => (
-      <Stack>
-        <Title order={3}>Editar Institución</Title>
-        {internalEditComponents}
-        <Flex justify="flex-end" mt="xl">
-          <MRT_EditActionButtons variant="text" table={table} row={row} />
-        </Flex>
-      </Stack>
-    ),
     renderRowActions: ({ row, table }) => (
       <Flex gap="md">
         <Tooltip label="Editar">
@@ -275,7 +147,7 @@ const InstitutionAdminPage: NextPage = () => {
     ),
     state: {
       isLoading: institutionsQuery.isLoading,
-      isSaving: createMutation.isPending || updateMutation.isPending || deleteMutation.isPending,
+      isSaving: deleteMutation.isPending,
       showAlertBanner: institutionsQuery.isError,
       showProgressBars: institutionsQuery.isFetching,
     },
@@ -319,25 +191,6 @@ const InstitutionAdminPage: NextPage = () => {
   if (institutionsQuery.isLoading) return <SkeletonFull />
 
   return <MantineReactTable table={table} />
-}
-
-const validateRequired = (value: string) => !!value.length
-const validateUrl = (url?: string) => {
-  if (!url) return true // URL is optional
-  try {
-    new URL(url)
-    return true
-  } catch {
-    return false
-  }
-}
-
-function validateInstitution(institution: InstitutionCreateDto) {
-  return {
-    name: !validateRequired(institution.name) ? 'El nombre es requerido' : '',
-    abbreviation: !validateRequired(institution.abbreviation) ? 'La abreviatura es requerida' : '',
-    web: !validateUrl(institution.web) ? 'URL inválida' : '',
-  }
 }
 
 export default InstitutionAdminPage

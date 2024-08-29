@@ -10,6 +10,7 @@ import { DepartmentsQueryKey, ResearchDepartments } from '../../services/departm
 import { DepartmentCreateDto } from '../../entities/Department/DepartmentCreateDto'
 import ResearchDepartment from '../../entities/ResearchDepartment'
 import { Facilities, FacilitiesQueryKey, FacilityRelations } from '../../services/facilities'
+import { AxiosError } from 'axios'
 
 export interface DepartmentCreateFormProps {
   table: MRT_TableInstance<ResearchDepartment>
@@ -32,10 +33,10 @@ const DepartmentCreateForm: React.FC<DepartmentCreateFormProps> = ({
       })
       table.setCreatingRow(null)
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       notifications.show({
         title: 'Error al crear el departamento',
-        message: error.message,
+        message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
     },

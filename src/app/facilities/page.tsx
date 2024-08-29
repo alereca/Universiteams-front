@@ -20,6 +20,7 @@ import { Facilities, FacilitiesQueryKey, FacilityRelations } from '../../../serv
 import Facility from '../../../entities/Facility/Facility'
 import FacilityEditForm from '../../../components/Facility/FacilityEditForm'
 import FacilityCreateForm from '../../../components/Facility/FacilityCreateForm'
+import { MRT_Localization_ES } from 'mantine-react-table/locales/es'
 
 const FacilitiesAdminPage: NextPage = () => {
   const router = useRouter()
@@ -35,11 +36,6 @@ const FacilitiesAdminPage: NextPage = () => {
 
   const columns = useMemo<MRT_ColumnDef<Facility>[]>(
     () => [
-      {
-        accessorKey: 'id',
-        header: 'ID',
-        size: 80,
-      },
       {
         accessorKey: 'name',
         header: 'Nombre',
@@ -76,10 +72,10 @@ const FacilitiesAdminPage: NextPage = () => {
       })
       modals.closeAll()
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       notifications.show({
         title: 'Error al eliminar la regional',
-        message: error.message,
+        message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
       modals.closeAll()
@@ -104,6 +100,7 @@ const FacilitiesAdminPage: NextPage = () => {
     columns,
     data: facilitiesQuery.data ?? [],
     enableColumnPinning: true,
+    localization: MRT_Localization_ES,
     initialState: {
       columnPinning: {
         left: ['mrt-row-actions'],

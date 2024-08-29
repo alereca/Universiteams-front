@@ -3,33 +3,33 @@ import { Title, Flex, TextInput, Button, Stack, LoadingOverlay } from '@mantine/
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Institutions, InstitutionQueryKey } from '../../services/institutions'
 import { modals } from '@mantine/modals'
 import { MRT_TableInstance } from 'mantine-react-table'
+import { InstitutionUpdateDto } from '../../entities/Institution/InstitutionUpdateDto'
 import Validation from '../../utils/string/Validation'
-import { DepartmentsQueryKey, ResearchDepartments } from '../../services/departments'
-import { DepartmentUpdateDto } from '../../entities/Department/DepartmentUpdateDto'
-import ResearchDepartment from '../../entities/ResearchDepartment'
+import Institution from '../../entities/Institution'
 import { AxiosError } from 'axios'
 
-export interface DepartmentUpdateFormProps {
-  facility: ResearchDepartment
-  table: MRT_TableInstance<ResearchDepartment>
+export interface InstitutionEditFormProps {
+  institution: Institution
+  table: MRT_TableInstance<Institution>
 }
 
-const DepartmentUpdateForm: React.FC<DepartmentUpdateFormProps> = ({
+const InstitutionEditForm: React.FC<InstitutionEditFormProps> = ({
   table,
-  facility: department,
-}: DepartmentUpdateFormProps) => {
+  institution,
+}: InstitutionEditFormProps) => {
   const queryClient = useQueryClient()
 
   const updateMutation = useMutation({
-    mutationFn: (updatedDepartment: DepartmentUpdateDto) =>
-      ResearchDepartments.updateDepartment(updatedDepartment),
+    mutationFn: (updatedInstitution: InstitutionUpdateDto) =>
+      Institutions.updateInstitution(updatedInstitution),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [DepartmentsQueryKey] })
+      queryClient.invalidateQueries({ queryKey: [InstitutionQueryKey] })
       notifications.show({
-        title: 'Departamento actualizada',
-        message: 'La repartamento se ha actualizado exitosamente',
+        title: 'Institución actualizada',
+        message: 'La institución se ha actualizado exitosamente',
         color: 'green',
       })
       table.setEditingRow(null)
@@ -37,49 +37,49 @@ const DepartmentUpdateForm: React.FC<DepartmentUpdateFormProps> = ({
     },
     onError: (error: AxiosError) => {
       notifications.show({
-        title: 'Error al actualizar el departamento',
+        title: 'Error al actualizar la institución',
         message: (error.response?.data as { message: string }).message ?? error.message,
         color: 'red',
       })
     },
   })
 
-  const form = useForm<DepartmentUpdateDto>({
+  const form = useForm<InstitutionUpdateDto>({
     initialValues: {
-      id: department.id,
-      name: department.name,
-      abbreviation: department.abbreviation,
-      web: department.web,
+      id: institution.id,
+      name: institution.name,
+      abbreviation: institution.abbreviation,
+      web: institution.web,
     },
     validate: {
-      name: (value) => (value ? null : 'Se require un nombre'),
+      name: (value) => (value ? null : 'Se requiere un nombre'),
       abbreviation: (value) => (value ? null : 'Se requiere una abreviatura'),
       web: Validation.url,
     },
   })
 
-  const handleSubmit = (values: DepartmentUpdateDto) => {
+  const handleSubmit = (values: InstitutionUpdateDto) => {
     updateMutation.mutate(values)
   }
 
   return (
     <Stack>
       <LoadingOverlay visible={updateMutation.isPending} />
-      <Title order={3}>Editar Departamento</Title>
+      <Title order={3}>Editar Institución</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           label="Nombre"
-          placeholder="Ingrese el nombre de el departamento"
+          placeholder="Ingrese el nombre de la institución"
           {...form.getInputProps('name')}
         />
         <TextInput
           label="Abreviatura"
-          placeholder="Ingrese la abreviatura de el departamento"
+          placeholder="Ingrese la abreviatura de la institución"
           {...form.getInputProps('abbreviation')}
         />
         <TextInput
           label="Web"
-          placeholder="Ingrese el sitio web de el departamento"
+          placeholder="Ingrese el sitio web de la institución"
           {...form.getInputProps('web')}
         />
         <Flex justify="flex-end" mt="xl">
@@ -90,4 +90,4 @@ const DepartmentUpdateForm: React.FC<DepartmentUpdateFormProps> = ({
   )
 }
 
-export default DepartmentUpdateForm
+export default InstitutionEditForm

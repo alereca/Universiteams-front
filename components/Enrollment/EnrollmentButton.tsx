@@ -138,7 +138,7 @@ const EnrollmentButton: React.FC<ActionIconComponentProps> = ({
     event.stopPropagation()
 
     modals.open({
-      title: 'Desinscribirse del proyecto',
+      title: 'Darse de baja del proyecto',
       centered: true,
       children: <UnenrollModal projectId={projectId} />,
     })

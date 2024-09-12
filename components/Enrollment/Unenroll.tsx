@@ -23,7 +23,7 @@ export const UnenrollModal = (props: EnrollmentCancelProps): React.JSX.Element =
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [ProjectsQueryKey] })
       notifications.show({
-        title: 'Desinscripción ejecutada',
+        title: 'Inscripción cancelada',
         message: 'Te has dado de baja del proyecto correctamente',
       })
       modals.closeAll()
@@ -42,9 +42,9 @@ export const UnenrollModal = (props: EnrollmentCancelProps): React.JSX.Element =
         overlayProps={{ radius: 'sm', blur: 2 }}
       />
 
-      <Text>[Opcional] Indica el motivo de tu desinscripción</Text>
+      <Text>[Opcional] Indica el motivo de tu desvinculación</Text>
       <Text size="sm" c="gray">
-        Puedes indicar porque te quieres desinscribir, sugerencias, etc.
+        Puedes indicar porque te quieres desvincular del proyecto, sugerencias, etc.
       </Text>
 
       <TextEditor onChange={(content) => form.setValues({ message: content })} />

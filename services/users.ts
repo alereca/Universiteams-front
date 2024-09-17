@@ -9,6 +9,7 @@ import { Order } from '@/entities/HelpTypes/Order'
 const prefix = `${Env.backendAPI}/users`
 
 export interface GetUsersInput {
+  generalSearchTerm?: string
   interestIds?: number[]
   institutionId?: number
   facilityId?: number
@@ -24,6 +25,7 @@ export const Users = {
   getUsers: async (params?: GetUsersInput) => {
     const url = prefix
       .concat(params ? '?' : '')
+      .concat(params?.generalSearchTerm ? `generalSearch=${params.generalSearchTerm}&` : '')
       .concat(
         params?.interestIds && params?.interestIds.length > 0
           ? params.interestIds.map((id: number) => `interestIds=${id}&`).join('')

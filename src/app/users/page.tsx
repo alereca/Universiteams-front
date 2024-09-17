@@ -63,6 +63,7 @@ const UsersPage: NextPage = () => {
   })
 
   const userParams: GetUsersInput = {
+    generalSearchTerm: searchQuery.get('generalSearch') ?? undefined,
     interestIds: searchQuery.getAll('interest').map((id: string) => +id),
     institutionId: searchQuery.get('university') ? +searchQuery.get('university')! : undefined,
     facilityId: searchQuery.get('facility') ? +searchQuery.get('facility')! : undefined,

@@ -22,6 +22,20 @@ export const Url = {
     return currentUrlParams as ReadonlyURLSearchParams
   },
 
+  removeUrlParam: (
+    router: AppRouterInstance,
+    pathname: string,
+    searchQuery: ReadonlyURLSearchParams,
+    paramName: string
+  ): ReadonlyURLSearchParams => {
+    const currentUrlParams = new URLSearchParams(searchQuery.toString())
+    currentUrlParams.delete(paramName)
+
+    router.push(`${pathname}?${currentUrlParams.toString()}`)
+
+    return currentUrlParams as ReadonlyURLSearchParams
+  },
+
   appendToUrl: (
     router: AppRouterInstance,
     pathname: string,

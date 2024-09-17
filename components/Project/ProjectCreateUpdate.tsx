@@ -248,7 +248,7 @@ const ProjectCreateUpdate = (props?: ProjectCreateUpdateProps) => {
     <>
       <Paper withBorder shadow="md" mx={'1.5rem'} my={'1rem'} p={'2rem'} radius="md">
         <Text size="2rem" mb="2rem">
-          {props?.id ? `Modificar proyecto #${props.id}` : 'Nuevo proyecto'}
+          {props?.id ? 'Modificar proyecto' : 'Nuevo proyecto'}
         </Text>
         <form
           onSubmit={form.onSubmit((values: ProjectNewRequest) =>
@@ -307,7 +307,7 @@ const ProjectCreateUpdate = (props?: ProjectCreateUpdateProps) => {
               <TextEditor
                 content={form.values.description}
                 onChange={(content) => {
-                  form.values.description = content
+                  form.setFieldValue('description', content)
                 }}
               />
             </Flex>

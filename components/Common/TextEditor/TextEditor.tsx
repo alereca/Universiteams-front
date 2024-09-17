@@ -72,6 +72,7 @@ interface TextEditorProps {
 
 const TextEditor = (props: TextEditorProps) => {
   const sanitizedContent = useMemo(() => sanitizeHtml(props.content ?? ''), [props.content])
+  console.log(sanitizedContent)
 
   const editor = useEditor({
     extensions: [

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Select, Stack, Grid, ActionIcon, Group, MultiSelect } from '@mantine/core'
+import { Select, Stack, Grid, ActionIcon, MultiSelect } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useMediaQuery } from '@mantine/hooks'
 
-import { IconArrowUp, IconArrowDown, IconTrash } from '@tabler/icons-react'
+import { IconArrowUp, IconArrowDown } from '@tabler/icons-react'
 import Theme from 'src/app/theme'
 
 import { Order } from '@/entities/HelpTypes/Order'
@@ -72,11 +72,6 @@ const UserFilterContent = (props: UserFilterContentProps) => {
   const handleOrderChange = () => {
     const value = form.values.order === Order.ASC ? Order.DESC : Order.ASC
     Url.setUrlParam(router, pathname, searchQuery, 'order', value)
-  }
-
-  const reset = () => {
-    form.reset()
-    router.push(`${pathname}`)
   }
 
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
@@ -170,12 +165,6 @@ const UserFilterContent = (props: UserFilterContentProps) => {
             onChange={handleDepartmentChange}
             disabled={!form.values.facility}
           />
-
-          <Group grow mt="xs">
-            <ActionIcon color="red" onClick={reset}>
-              <IconTrash />
-            </ActionIcon>
-          </Group>
         </Stack>
       </form>
     </>

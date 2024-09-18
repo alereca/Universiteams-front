@@ -26,7 +26,7 @@ const SearchBar = () => {
     }
 
     Url.setUrlParam(router, targetPath, searchQuery, 'generalSearch', generalSearch)
-  }, [debouncedGeneralSearch, pathname])
+  }, [debouncedGeneralSearch])
 
   return (
     <>

@@ -13,7 +13,10 @@ const SearchBar = () => {
   const searchQuery = useSearchParams()
 
   const [generalSearch, setGeneralSearch] = useState('')
-  const [debouncedGeneralSearch] = useDebouncedValue(generalSearch, 400)
+  const [debouncedGeneralSearch, updateDebouncedGeneralSearch] = useDebouncedValue(
+    generalSearch,
+    400
+  )
 
   const isMobile = useMediaQuery(`(max-width: ${Theme.breakpoints?.lg})`)
   const targetPath = pathname === '/users' ? '/users' : '/projects'
@@ -27,6 +30,13 @@ const SearchBar = () => {
 
     Url.setUrlParam(router, targetPath, searchQuery, 'generalSearch', generalSearch)
   }, [debouncedGeneralSearch])
+
+  useEffect(() => {
+    if (pathname !== '/projects' && pathname !== '/users') {
+      setGeneralSearch('')
+      updateDebouncedGeneralSearch()
+    }
+  }, [pathname])
 
   return (
     <>
